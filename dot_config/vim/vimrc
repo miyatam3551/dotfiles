@@ -1,0 +1,173 @@
+language en_US.UTF-8
+let mapleader = "\<Space>"
+
+" --- setting for display ------------------------
+set nowrap " not turn back at the end of row 
+set clipboard&
+set clipboard^=unnamedplus
+set clipboard+=unnamed
+set number
+set laststatus=2 "show status line (you can see file path and cursor position in below status line)
+set encoding=UTF-8
+set cursorline "highlight cursor row
+set cursorcolumn "highlight cursor col
+set wildmenu " tab-completion in command-line mode
+syntax enable
+let g:airline_theme = 'badwolf'
+" for change cursor shape by mode
+let &t_ti.="\e[1 q"
+let &t_SI.="\e[5 q"
+let &t_EI.="\e[1 q"
+let &t_te.="\e[0 q"
+
+" --- setting for search -------------------------
+set hlsearch
+set incsearch
+set wrapscan "back to top at end of searching
+set ignorecase "ignore big/small char
+set smartcase " when using big char, ignore small char
+
+" --- setting for edit ---------------------------
+set tabstop=4 "tab width
+set expandtab "expand tab to space
+set shiftwidth=4 "auto-indent width
+set showmatch "show paired bracket
+set smartindent "smartindent:jisage, autoindent:keep
+" you can confirm check filetype when type :echo &filetype with opening target file.
+autocmd FileType fish setlocal commentstring=#\ %s
+autocmd FileType python setlocal commentstring=#\ %s
+autocmd FileType toml setlocal commentstring=#\ %s
+autocmd FileType yaml setlocal commentstring=#\ %s shiftwidth=2 tabstop=2 expandtab
+autocmd FileType yml setlocal commentstring=#\ %s
+autocmd FileType vim setlocal commentstring=\"\ %s
+autocmd FileType gitconfig setlocal commentstring=#\ %s
+autocmd FileType javascript setlocal commentstring=\/\/\ %s
+let g:bullets_enabled_file_types = ['markdown', 'text', 'gitcommit', 'scratch']
+" for macOS, fix backspace function
+" https://wonderwall.hatenablog.com/entry/2016/03/23/232634
+set backspace=indent,eol,start
+
+" ===========================================================
+" plugin
+" ===========================================================
+" for install plugin automatically 
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.config/vim'
+if empty(glob(data_dir . '/pack/jetpack/opt/vim-jetpack/plugin/jetpack.vim'))
+    silent execute '!curl -fLo '.data_dir.'/pack/jetpack/opt/vim-jetpack/plugin/jetpack.vim --create-dirs  https://raw.githubusercontent.com/tani/vim-jetpack/master/plugin/jetpack.vim'
+    autocmd VimEnter * JetpackSync | source $MYVIMRC
+endif
+
+" plugin setting
+" when you activate plugin, type ':Jetpack'
+packadd vim-jetpack
+call jetpack#begin()
+Jetpack 'tani/vim-jetpack'
+Jetpack 'easymotion/vim-easymotion'
+Jetpack 'tpope/vim-commentary' "gc
+Jetpack 'tpope/vim-surround' "ysiw, cs, ds, vS
+Jetpack 'tpope/vim-repeat' "use . for vim-surround
+Jetpack 'junegunn/vim-easy-align' "align by =
+Jetpack 'jiangmiao/auto-pairs'
+Jetpack 'machakann/vim-highlightedyank' " when yank, highlight the range.
+Jetpack 'vim-airline/vim-airline-themes'
+Jetpack 'dag/vim-fish' " syntax highlight addon for .fish file.
+Jetpack 'elkasztano/nushell-syntax-vim' " syntax highlight addon for .nu file.
+Jetpack 'mechatroner/rainbow_csv'
+Jetpack 'haya14busa/incsearch.vim'
+Jetpack 'haya14busa/incsearch-easymotion.vim' " when search, display letters https://portalshit.net/2020/05/17/vim-configuration-2020
+Jetpack 'vim-scripts/ReplaceWithRegister' " gr
+Jetpack 'preservim/nerdtree' " :NERDTreeToggle
+Jetpack 'bullets-vim/bullets.vim' " for markdown
+
+" ==========================================================
+" colorscheme
+" ==========================================================
+Jetpack 'tomasr/molokai' " coc recommend selecter color is not good.so add 'highligt CocMenuSel ctermbg=23'
+call jetpack#end()
+
+autocmd ColorScheme * highlight CursorLine ctermbg=236
+autocmd ColorScheme * highlight CursorColumn ctermbg=236
+autocmd ColorScheme * highlight EasyMotionTarget ctermfg=160
+autocmd ColorScheme * highlight EasyMotionTarget2First ctermfg=39
+autocmd ColorScheme * highlight EasyMotionTarget2Second ctermfg=31
+colorscheme molokai
+set background=dark 
+highlight LineNr ctermfg=240
+highlight Visual ctermfg=gray
+
+" ==========================================================
+" plugin setting
+" ==========================================================
+"
+" for incsearch-easymotion
+map / <Plug>(incsearch-easymotion-/)
+map ? <Plug>(incsearch-easymotion-?)
+
+"for vim-easy-align
+xmap ga <Plug>(EasyAlign)
+
+" for easy motion
+let g:EasyMotion_do_mapping = 0 " Disable default mappings
+let g:EasyMotion_smartcase  = 1
+nmap F <Plug>(easymotion-overwin-f2)
+nmap f <Plug>(easymotion-bd-w)
+map <leader>l <Plug>(easymotion-bd-jk)
+" you can use yf[char], df[char], yf[char], dt[char] 
+" map f <Plug>(easymotion-bd-fl) 
+map t <Plug>(easymotion-bd-tl)
+
+" setting for repeat.vim (you can use . for vim-surround)
+silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
+
+" ==================================================================================
+" general
+" ==================================================================================
+nnoremap <leader>t :NERDTreeToggle<CR>
+nnoremap <leader>w <C-w>w
+" replace the word in the file 
+nnoremap <leader>s :%s/<C-r><C-w>//g<LEFT><LEFT>
+" count the number of matched words
+nnoremap <leader>c :%s/<C-r><C-w>//gn<CR>
+" get current file path
+nnoremap <leader>p :let @+=expand('%:p')<CR>
+
+" nnoremap <leader>pd :CocCommand pydocstring.runFile<CR>
+" noremap j gj
+" noremap k gk
+noremap x "_x
+noremap s "_s
+" you'd like to join rows, input gJ
+noremap <C-j> J
+noremap <S-j> 10j
+noremap <S-k> 10k
+noremap <S-h> ^
+noremap <S-l> $
+vnoremap < <gv
+vnoremap > >gv
+nnoremap <ESC><ESC> :nohlsearch<CR>
+
+" you will be able to use 'hjkl' mode ;)
+noremap <Left> <C-w><C-<>
+noremap <Down> <Nop>
+noremap <Up> <Nop>
+noremap <Right> <C-w><C->>
+
+" when shift+tab, delete tab
+inoremap <S-Tab> <C-d>
+" evalueate the fomula in register and paste it
+" ex. when 2+2 in row, you can get 4
+nnoremap <C-e> yyA<space>=<space><C-r>=<C-r>"<BS><CR><ESC>
+
+" for save and quit
+cmap w!! w !sudo tee > /dev/null %  " force save
+
+" toupper
+" https://zenn.dev/vim_jp/articles/2024-10-07-vim-insert-uppercase
+" after input strings, you can use <C-l> to change the strings to uppercase.
+function s:toupper_prev_word()
+  let col = getpos('.')[2]
+  let substring = getline('.')[0:col-1]
+  let word = matchstr(substring, '\v<(\k(<)@!)*$')
+  return toupper(word)
+endfunction
+inoremap <expr> <C-l> "<C-w>" .. <SID>toupper_prev_word()
