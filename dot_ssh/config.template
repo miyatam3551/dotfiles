@@ -1,0 +1,50 @@
+# SSH Config Template
+# このファイルをコピーして ssh/config として使用してください
+# cp ssh/config.template ssh/config
+
+# OrbStack設定（必要に応じて）
+# Include ~/.orbstack/ssh/config
+
+# ローカル設定ファイルの読み込み（オプション）
+# Include ~/.ssh/local_config
+
+Host *
+    # 1Password SSH Agent
+    IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+    # send keepalive packets every 60 seconds
+    ServerAliveInterval 60
+    # only use the specified key
+    IdentitiesOnly yes
+
+# GitHub複数アカウント使い分け例
+# Host: 任意の名前（ghq getで使用する名前）
+# HostName: 実際の接続先ホスト名
+# IdentityFile: そのアカウントに登録しているSSH秘密鍵のパス
+
+# 個人アカウント用
+Host github-personal.com
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/keys/personal.pub
+
+# 仕事用アカウント
+Host github-work.com
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/keys/work.pub
+
+# 使用例:
+# ghq get git@github-personal.com:username/repo.git
+# ghq get git@github-work.com:company/repo.git
+
+# デフォルトのGitHub設定（単一アカウントの場合）
+# Host github.com
+#     HostName github.com
+#     User git
+#     IdentityFile ~/.ssh/id_ed25519
+
+# プライベートサーバー設定例
+# Host myserver
+#     HostName 192.168.1.100
+#     User username
+#     IdentityFile ~/.ssh/id_rsa
