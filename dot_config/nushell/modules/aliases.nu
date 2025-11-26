@@ -37,4 +37,7 @@ export alias gri = repo-info
 export alias rr = rm -r
 
 # Kubernetes
-alias k = kubectl
+export alias k = kubectl
+
+# chezmoi
+export alias cm = chezmoi

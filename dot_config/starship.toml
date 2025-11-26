@@ -1,7 +1,7 @@
 format = """
 [](fg:#7aa2f7)$os[ ](fg:#7aa2f7)$directory $git_branch $git_status $git_metrics\
 $fill\
-$battery $time [](fg:#9ece6a)$python$kubernetes[](fg:#9ece6a) 
+$battery [](fg:#9ece6a)$kubernetes[](fg:#9ece6a)[](fg:#9ece6a)$aws$azure[](fg:#9ece6a) 
 $character
 """
 
@@ -73,9 +73,9 @@ symbol = ' '
 
 [character]
 # fish の場合
-# success_symbol = "[ ❯](green)"
-# error_symbol = "[❮](#ff00ff)"
-# vicmd_symbol = "[ ❯](#00ffff)"
+#success_symbol = "[ ❯](green)"
+#error_symbol = "[❮](#ff00ff)"
+#vicmd_symbol = "[ ❯](#00ffff)"
 
 # nushell の場合
 success_symbol = "[](green)"
@@ -113,6 +113,19 @@ contexts = [
   { context_pattern = "prod", style = '#CC0033 bg:#9ece6a'},
 ]
 
+[aws]
+symbol = ' '
+format = '[$symbol($profile)]($style)'
+#format = '[$symbol($profile )(\($region\) )(\[$duration\] )]($style)'
+style = 'fg:#1a1b26 bg:#9ece6a'
+disabled = false
+
+[azure]
+symbol = ' '
+format = '[$symbol($subscription)]($style)'
+style = 'fg:#1a1b26 bg:#9ece6a'
+disabled = true
+
 [cmd_duration]
 min_time = 1000
 style = 'fg:#e0af68'
@@ -123,3 +136,4 @@ format = "[  󰅕 $duration]($style)" # nf-pl-right_soft_divider, nf-mdi-cloc
 #command = "df -h / | tail -1 | awk '{print $4 \"/\" $2 }'"
 #when = "true"
 #format = " [  󰥠 $output](bold blue)"
+

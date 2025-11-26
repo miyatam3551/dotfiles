@@ -8,10 +8,11 @@ chezmoi で管理している個人用 dotfiles
 - Nushell の設定ファイル
 - `config.nu`: メイン設定（エディタ、プロンプトなど）
 - `env.nu`: 環境変数設定
-- `modules/`: エイリアスや関数のモジュール
+- `modules/`: エイリアスや関数のモジュール（chezmoi: `cm`、kubectl: `k` など）
 
 ### `~/.config/fish/`
-- Fish シェルの設定ファイル（旧環境）
+- バックアップ目的(もう使っていない)
+- Fish シェルの設定ファイル
 - プラグイン設定とカスタム関数を含む
 
 ### `~/.config/vim/vimrc`
@@ -24,7 +25,7 @@ chezmoi で管理している個人用 dotfiles
 - Delta（差分表示ツール）との連携
 - 1Password による SSH 署名設定
 
-### `~/.ssh/`
+### `~/.ssh/config.template`
 - SSH 接続設定
 
 ## ターミナル & プロンプト
@@ -35,6 +36,7 @@ chezmoi で管理している個人用 dotfiles
 
 ### `~/.config/starship.toml`
 - Starship プロンプトの設定
+- Kubernetes、AWS、Azure のコンテキスト表示対応
 
 ### `~/.config/tmux/tmux.conf`
 - tmux ターミナルマルチプレクサの設定
