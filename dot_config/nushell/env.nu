@@ -9,7 +9,7 @@ $env.EDITOR = "vim"
 $env.CLAUDE_CONFIG_DIR = ($env.HOME + '/.config/claude')
 $env.STARSHIP_CONFIG = ($env.HOME + '/.config/starship.toml')
 $env.KUBECONFIG = ($env.HOME + '/.config/kube/config')
-$env.AWS_PROFILE = 'admin'
+$env.AWS_PROFILE = 'private-dev'
 
 # ===============================================
 # vi-mode のプロンプトの定義
