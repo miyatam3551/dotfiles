@@ -30,7 +30,6 @@ $env.PATH = (
         ($env.HOME + '/.cargo/bin')          # Cargo (Rust)
         ($env.HOME + '/.local/bin')          # uv, pipx など
         ($env.HOME + '/go/bin')              # Go (標準)
-        ('/usr/local/bin')                   # awscli
     ]
     | uniq                                    # 重複を除去
 )
