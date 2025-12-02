@@ -41,3 +41,6 @@ export alias k = kubectl
 
 # chezmoi
 export alias cm = chezmoi
+
+# original script: protect branch
+export alias protect-branch = bash ~/templates/protect-branch.sh
