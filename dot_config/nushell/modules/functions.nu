@@ -45,3 +45,11 @@ export def --env y [...args] {
 	}
 	rm -fp $tmp
 }
+
+# ===============================================
+# mkcd の設定
+# ===============================================
+export def mkcd [dir: string] {
+  mkdir $dir
+  cd $dir
+}
