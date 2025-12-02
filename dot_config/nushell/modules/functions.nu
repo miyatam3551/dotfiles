@@ -49,7 +49,7 @@ export def --env y [...args] {
 # ===============================================
 # mkcd の設定
 # ===============================================
-export def mkcd [dir: string] {
+export def --env mkcd [dir: string] {
   mkdir $dir
   cd $dir
 }
