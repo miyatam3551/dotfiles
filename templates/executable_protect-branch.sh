@@ -75,18 +75,14 @@ if [ "$ENABLE_FULL_PROTECTION" = true ]; then
 {
   "required_status_checks": { "strict": true, "contexts": [] },
   "enforce_admins": true,
-  "required_pull_request_reviews": {
-    "dismiss_stale_reviews": true,
-    "require_code_owner_reviews": false,
-    "required_approving_review_count": 1
-  },
+  "required_pull_request_reviews": null,
   "restrictions": null,
   "required_linear_history": true,
   "allow_force_pushes": false,
   "allow_deletions": false
 }
 EOF
-  echo "✅ 完了: PR必須、直接プッシュ禁止、管理者バイパス禁止"
+  echo "✅ 完了: 直接プッシュ禁止、管理者バイパス禁止"
 else
   apply_protection <<EOF
 {
