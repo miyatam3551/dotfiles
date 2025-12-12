@@ -66,6 +66,12 @@ $env.config = ($env.config? | default {} | merge {
             }
         }
     ]
+
+    # カラー設定 (テーブル表示時の着色)
+    # https://www.nushell.sh/blog/2024-05-15-top-nushell-hacks.html
+    color_config: {
+        string: {|| if $in =~ '^#[a-fA-F\d]+' { $in } else { 'default' } }
+    }
 })
 
 # ===============================================
