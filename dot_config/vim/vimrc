@@ -2,19 +2,19 @@ language en_US.UTF-8
 let mapleader = "\<Space>"
 
 " --- setting for display ------------------------
-set nowrap " not turn back at the end of row 
+set nowrap " Disable line wrapping at window edge | ウィンドウ端での行折り返しを無効化
 set clipboard&
 set clipboard^=unnamedplus
 set clipboard+=unnamed
 set number
-set laststatus=2 "show status line (you can see file path and cursor position in below status line)
+set laststatus=2 " Always show status line (displays file path and cursor position) | ステータスラインを常に表示（ファイルパスとカーソル位置を表示）
 set encoding=UTF-8
-set cursorline "highlight cursor row
-set cursorcolumn "highlight cursor col
-set wildmenu " tab-completion in command-line mode
+set cursorline " Highlight current line | カーソル行をハイライト
+set cursorcolumn " Highlight current column | カーソル列をハイライト
+set wildmenu " Enable tab-completion menu in command-line mode | コマンドラインモードでタブ補完メニューを有効化
 syntax enable
 let g:airline_theme = 'badwolf'
-" for change cursor shape by mode
+" Change cursor shape based on mode (block in normal, line in insert) | モードに応じてカーソル形状を変更（ノーマル:ブロック、インサート:ライン）
 let &t_ti.="\e[1 q"
 let &t_SI.="\e[5 q"
 let &t_EI.="\e[1 q"
@@ -23,17 +23,17 @@ let &t_te.="\e[0 q"
 " --- setting for search -------------------------
 set hlsearch
 set incsearch
-set wrapscan "back to top at end of searching
-set ignorecase "ignore big/small char
-set smartcase " when using big char, ignore small char
+set wrapscan " Wrap around to beginning when searching past end of file | ファイル末尾で検索を先頭に戻す
+set ignorecase " Case-insensitive search by default | デフォルトで大文字小文字を区別しない検索
+set smartcase " Case-sensitive when search contains uppercase letters | 検索に大文字が含まれる場合は大文字小文字を区別
 
 " --- setting for edit ---------------------------
-set tabstop=4 "tab width
-set expandtab "expand tab to space
-set shiftwidth=4 "auto-indent width
-set showmatch "show paired bracket
-set smartindent "smartindent:jisage, autoindent:keep
-" you can confirm check filetype when type :echo &filetype with opening target file.
+set tabstop=4 " Tab character width in spaces | タブ文字の幅（スペース数）
+set expandtab " Convert tabs to spaces | タブをスペースに変換
+set shiftwidth=4 " Indent width for auto-indent (>>, <<, etc.) | 自動インデント幅（>>、<<など）
+set showmatch " Highlight matching brackets/parentheses | 対応する括弧をハイライト
+set smartindent " Smart auto-indenting (context-aware indentation) | スマート自動インデント（文脈に応じたインデント）
+" File-type specific comment and indent settings (check with :echo &filetype) | ファイルタイプ別のコメントとインデント設定（:echo &filetypeで確認）
 autocmd FileType fish setlocal commentstring=#\ %s
 autocmd FileType python setlocal commentstring=#\ %s
 autocmd FileType toml setlocal commentstring=#\ %s
@@ -43,47 +43,46 @@ autocmd FileType vim setlocal commentstring=\"\ %s
 autocmd FileType gitconfig setlocal commentstring=#\ %s
 autocmd FileType javascript setlocal commentstring=\/\/\ %s
 let g:bullets_enabled_file_types = ['markdown', 'text', 'gitcommit', 'scratch']
-" for macOS, fix backspace function
-" https://wonderwall.hatenablog.com/entry/2016/03/23/232634
+" Fix backspace behavior on macOS to allow deletion across lines/indents | macOSでのバックスペース動作を修正（行/インデントをまたいで削除可能に）
+" Reference: https://wonderwall.hatenablog.com/entry/2016/03/23/232634
 set backspace=indent,eol,start
 
 " ===========================================================
 " plugin
 " ===========================================================
-" for install plugin automatically 
+" Auto-install vim-jetpack plugin manager if not present | vim-jetpackプラグインマネージャーがない場合は自動インストール
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.config/vim'
 if empty(glob(data_dir . '/pack/jetpack/opt/vim-jetpack/plugin/jetpack.vim'))
     silent execute '!curl -fLo '.data_dir.'/pack/jetpack/opt/vim-jetpack/plugin/jetpack.vim --create-dirs  https://raw.githubusercontent.com/tani/vim-jetpack/master/plugin/jetpack.vim'
     autocmd VimEnter * JetpackSync | source $MYVIMRC
 endif
 
-" plugin setting
-" when you activate plugin, type ':Jetpack'
+" Plugin declarations (install/update with :JetpackSync) | プラグイン宣言（:JetpackSyncでインストール/更新）
 packadd vim-jetpack
 call jetpack#begin()
 Jetpack 'tani/vim-jetpack'
-Jetpack 'easymotion/vim-easymotion'
-Jetpack 'tpope/vim-commentary' "gc
-Jetpack 'tpope/vim-surround' "ysiw, cs, ds, vS
-Jetpack 'tpope/vim-repeat' "use . for vim-surround
-Jetpack 'junegunn/vim-easy-align' "align by =
-Jetpack 'jiangmiao/auto-pairs'
-Jetpack 'machakann/vim-highlightedyank' " when yank, highlight the range.
-Jetpack 'vim-airline/vim-airline-themes'
-Jetpack 'dag/vim-fish' " syntax highlight addon for .fish file.
-Jetpack 'elkasztano/nushell-syntax-vim' " syntax highlight addon for .nu file.
-Jetpack 'mechatroner/rainbow_csv'
-Jetpack 'haya14busa/incsearch.vim'
-Jetpack 'haya14busa/incsearch-easymotion.vim' " when search, display letters https://portalshit.net/2020/05/17/vim-configuration-2020
-Jetpack 'vim-scripts/ReplaceWithRegister' " gr
-Jetpack 'preservim/nerdtree' " :NERDTreeToggle
-Jetpack 'bullets-vim/bullets.vim' " for markdown
-Jetpack 'github/copilot.vim' " for GitHub Copilot
+Jetpack 'easymotion/vim-easymotion' " Fast cursor movement (f, F, <leader>l) | 高速カーソル移動
+Jetpack 'tpope/vim-commentary' " Comment toggling (gc) | コメントのトグル
+Jetpack 'tpope/vim-surround' " Surround text objects (ysiw, cs, ds, vS) | テキストオブジェクトの囲み操作
+Jetpack 'tpope/vim-repeat' " Enable . repeat for plugin commands | プラグインコマンドの.リピート有効化
+Jetpack 'junegunn/vim-easy-align' " Align text by delimiter (ga) | 区切り文字でテキスト整列
+Jetpack 'jiangmiao/auto-pairs' " Auto-close brackets/quotes | 括弧/引用符の自動閉じ
+Jetpack 'machakann/vim-highlightedyank' " Visual feedback when yanking | ヤンク時の視覚的フィードバック
+Jetpack 'vim-airline/vim-airline-themes' " Statusline themes | ステータスラインテーマ
+Jetpack 'dag/vim-fish' " Syntax highlighting for fish shell | fishシェルのシンタックスハイライト
+Jetpack 'elkasztano/nushell-syntax-vim' " Syntax highlighting for nushell | nushellのシンタックスハイライト
+Jetpack 'mechatroner/rainbow_csv' " CSV column highlighting | CSV列のハイライト
+Jetpack 'haya14busa/incsearch.vim' " Enhanced incremental search | 拡張インクリメンタル検索
+Jetpack 'haya14busa/incsearch-easymotion.vim' " Combine search with easymotion labels | 検索とeasymotionラベルの統合
+Jetpack 'vim-scripts/ReplaceWithRegister' " Replace motion with register (gr) | レジスタでモーション範囲を置換
+Jetpack 'preservim/nerdtree' " File tree explorer (:NERDTreeToggle) 
+Jetpack 'bullets-vim/bullets.vim' " Auto-bullets for markdown | マークダウンの自動箇条書き
+Jetpack 'github/copilot.vim' " GitHub Copilot AI assistance
 
 " ==========================================================
 " colorscheme
 " ==========================================================
-Jetpack 'tomasr/molokai' " coc recommend selecter color is not good.so add 'highligt CocMenuSel ctermbg=23'
+Jetpack 'tomasr/molokai' " Dark color scheme (molokai) | ダークカラースキーム
 call jetpack#end()
 
 autocmd ColorScheme * highlight CursorLine ctermbg=236
@@ -97,78 +96,70 @@ highlight LineNr ctermfg=240
 highlight Visual ctermfg=gray
 
 " ==========================================================
-" plugin setting
+" plugin settings
 " ==========================================================
-"
-" for incsearch-easymotion
+
+" incsearch-easymotion: Show easymotion labels during search | 検索中にeasymotionラベルを表示
 map / <Plug>(incsearch-easymotion-/)
 map ? <Plug>(incsearch-easymotion-?)
 
-"for vim-easy-align
+" vim-easy-align: Align text by delimiter (visual mode + ga) | 区切り文字でテキスト整列（ビジュアルモード + ga）
 xmap ga <Plug>(EasyAlign)
 
-" for easy motion
-let g:EasyMotion_do_mapping = 0 " Disable default mappings
-let g:EasyMotion_smartcase  = 1
-nmap F <Plug>(easymotion-overwin-f2)
-nmap f <Plug>(easymotion-bd-w)
-map <leader>l <Plug>(easymotion-bd-jk)
-" you can use yf[char], df[char], yf[char], dt[char] 
-" map f <Plug>(easymotion-bd-fl) 
-map t <Plug>(easymotion-bd-tl)
+" easymotion: Fast cursor movement with custom mappings | カスタムマッピングによる高速カーソル移動
+let g:EasyMotion_do_mapping = 0 " Disable default mappings (use custom below) | デフォルトマッピングを無効化（以下のカスタムを使用）
+let g:EasyMotion_smartcase  = 1 " Case-insensitive matching | 大文字小文字を区別しないマッチング
+nmap F <Plug>(easymotion-overwin-f2) " Jump to 2-char search across windows | ウィンドウ全体で2文字検索ジャンプ
+nmap f <Plug>(easymotion-bd-w) " Jump to word start | 単語の先頭にジャンプ
+map <leader>l <Plug>(easymotion-bd-jk) " Jump to line | 行にジャンプ
 
-" setting for repeat.vim (you can use . for vim-surround)
+" repeat.vim: Enable . repeat for vim-surround and other plugins | vim-surroundなどのプラグインで.リピートを有効化
+" https://vimawesome.com/plugin/repeat-vim
 silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
 
 " ==================================================================================
-" general
+" general keymappings
 " ==================================================================================
-nnoremap <leader>t :NERDTreeToggle<CR>
+" <leader>e: Toggle NERDTree file explorer | NERDTreeファイルエクスプローラーのトグル
+nnoremap <silent> <leader>e :if &filetype == 'nerdtree' \| NERDTreeClose \| elseif exists("t:NERDTreeBufName") \| NERDTreeFocus \| else \| NERDTree \| endif<CR>
+" <leader>w: Switch to next window | 次のウィンドウに切り替え
 nnoremap <leader>w <C-w>w
-" replace the word in the file 
+" <leader>s: Search & replace word under cursor (fill in replacement) | カーソル下の単語を検索・置換（置換文字列を入力）
 nnoremap <leader>s :%s/<C-r><C-w>//g<LEFT><LEFT>
-" count the number of matched words
+" <leader>c: Count occurrences of word under cursor | カーソル下の単語の出現回数をカウント
 nnoremap <leader>c :%s/<C-r><C-w>//gn<CR>
-" get current file path
+" <leader>p: Copy current file's absolute path to clipboard | 現在のファイルの絶対パスをクリップボードにコピー
 nnoremap <leader>p :let @+=expand('%:p')<CR>
 
-" nnoremap <leader>pd :CocCommand pydocstring.runFile<CR>
-" noremap j gj
-" noremap k gk
+" x/s: Delete without yanking (to black hole register) | ヤンクせずに削除（ブラックホールレジスタへ）
 noremap x "_x
 noremap s "_s
-" you'd like to join rows, input gJ
+
+" <C-j>: Join lines (remap from default J, since J is for 10j below) | 行を結合（デフォルトのJから再マップ、Jは下の10j用）
 noremap <C-j> J
+
+" Shift+hjkl: Fast movement (10 lines or to line start/end) | 高速移動（10行移動または行頭/行末へ）
 noremap <S-j> 10j
 noremap <S-k> 10k
 noremap <S-h> ^
 noremap <S-l> $
+
+" </> in visual mode: Keep selection after indent | ビジュアルモードでインデント後も選択を維持
 vnoremap < <gv
 vnoremap > >gv
+
+" ESC ESC: Clear search highlighting | 検索ハイライトをクリア
 nnoremap <ESC><ESC> :nohlsearch<CR>
 
-" you will be able to use 'hjkl' mode ;)
+" Disable arrow keys to force hjkl usage (Vim training mode) | hjkl使用を強制するため矢印キーを無効化（Vimトレーニングモード）
+" Up/Down: disabled completely | Left/Right: repurposed for window resizing | 上下:完全無効化 | 左右:ウィンドウリサイズに転用
 noremap <Left> <C-w><C-<>
 noremap <Down> <Nop>
 noremap <Up> <Nop>
 noremap <Right> <C-w><C->>
 
-" when shift+tab, delete tab
+" Shift+Tab in insert mode: Decrease indent | インサートモードでShift+Tab:インデントを減らす
 inoremap <S-Tab> <C-d>
-" evalueate the fomula in register and paste it
-" ex. when 2+2 in row, you can get 4
-nnoremap <C-e> yyA<space>=<space><C-r>=<C-r>"<BS><CR><ESC>
 
-" for save and quit
-cmap w!! w !sudo tee > /dev/null %  " force save
-
-" toupper
-" https://zenn.dev/vim_jp/articles/2024-10-07-vim-insert-uppercase
-" after input strings, you can use <C-l> to change the strings to uppercase.
-function s:toupper_prev_word()
-  let col = getpos('.')[2]
-  let substring = getline('.')[0:col-1]
-  let word = matchstr(substring, '\v<(\k(<)@!)*$')
-  return toupper(word)
-endfunction
-inoremap <expr> <C-l> "<C-w>" .. <SID>toupper_prev_word()
+" w!!: Force save with sudo (for write-protected files) | w!!:sudoで強制保存（書き込み保護ファイル用）
+cmap w!! w !sudo tee > /dev/null %
