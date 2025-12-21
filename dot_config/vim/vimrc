@@ -109,9 +109,15 @@ xmap ga <Plug>(EasyAlign)
 " easymotion: Fast cursor movement with custom mappings | カスタムマッピングによる高速カーソル移動
 let g:EasyMotion_do_mapping = 0 " Disable default mappings (use custom below) | デフォルトマッピングを無効化（以下のカスタムを使用）
 let g:EasyMotion_smartcase  = 1 " Case-insensitive matching | 大文字小文字を区別しないマッチング
-nmap F <Plug>(easymotion-overwin-f2) " Jump to 2-char search across windows | ウィンドウ全体で2文字検索ジャンプ
-nmap f <Plug>(easymotion-bd-w) " Jump to word start | 単語の先頭にジャンプ
-map <leader>l <Plug>(easymotion-bd-jk) " Jump to line | 行にジャンプ
+
+" F: Jump to 2-char search across windows | ウィンドウ全体で2文字検索ジャンプ
+nmap F <Plug>(easymotion-overwin-f2)
+
+" f: Jump to word start | 単語の先頭にジャンプ
+nmap f <Plug>(easymotion-bd-w)
+
+" <leader>l: Jump to line | 行にジャンプ
+map <leader>l <Plug>(easymotion-bd-jk)
 
 " repeat.vim: Enable . repeat for vim-surround and other plugins | vim-surroundなどのプラグインで.リピートを有効化
 " https://vimawesome.com/plugin/repeat-vim
