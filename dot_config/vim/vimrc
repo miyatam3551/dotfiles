@@ -78,6 +78,7 @@ Jetpack 'haya14busa/incsearch-easymotion.vim' " when search, display letters htt
 Jetpack 'vim-scripts/ReplaceWithRegister' " gr
 Jetpack 'preservim/nerdtree' " :NERDTreeToggle
 Jetpack 'bullets-vim/bullets.vim' " for markdown
+Jetpack 'github/copilot.vim' " for GitHub Copilot
 
 " ==========================================================
 " colorscheme
