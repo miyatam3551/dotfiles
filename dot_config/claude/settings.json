@@ -130,7 +130,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash -c 'txt=\"クロードコードが呼んでいます。\"; f=$(mktemp /tmp/vv_XXXXXX); f=\"${f}.wav\"; curl -s -X POST \"http://127.0.0.1:50021/audio_query?speaker=14\" --get --data-urlencode text=\"${txt}\" | curl -s -X POST -H \"Content-Type: application/json\" -d @- \"http://127.0.0.1:50021/synthesis?speaker=14\" -o \"$f\"; afplay \"$f\"; rm \"$f\"'"
+            "command": "bash -c 'txt=\"クロードコードが呼んでいます。\"; f=$(mktemp /tmp/vv_XXXXXX); f=\"${f}.wav\"; curl -s -X POST \"http://127.0.0.1:50021/audio_query?speaker=3\" --get --data-urlencode text=\"${txt}\" | curl -s -X POST -H \"Content-Type: application/json\" -d @- \"http://127.0.0.1:50021/synthesis?speaker=3\" -o \"$f\"; afplay \"$f\"; rm \"$f\"'"
           }
         ]
       }
