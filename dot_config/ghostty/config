@@ -1,0 +1,67 @@
+# Ghostty Configuration
+
+# =============================================================================
+# Shell Settings
+# =============================================================================
+# デフォルトシェルの設定
+command = /opt/homebrew/bin/fish
+
+# =============================================================================
+# Font Settings
+# =============================================================================
+# [HackGen35 Console NF, PlemolJP35 Console NF]
+font-family = HackGen35 Console NF
+font-size = 20
+
+# =============================================================================
+# Theme and Color Settings
+# =============================================================================
+# 利用可能なテーマは `ghostty +list-themes` で確認可能
+theme = Solarized Dark Patched
+
+# =============================================================================
+# Window Settings
+# =============================================================================
+# ウィンドウ装飾設定
+window-decoration = true
+
+# 背景画像設定
+background-image = ./background.jpg
+background-image-opacity = 0.6
+background-image-position = center
+background-image-fit = cover
+background-image-repeat = false
+
+# ウィンドウを最大化して起動
+window-inherit-working-directory = true
+window-save-state = always
+
+# =============================================================================
+# Cursor Settings
+# =============================================================================
+# カーソルスタイル: 点滅するブロック型
+cursor-style = block
+cursor-style-blink = true
+
+# =============================================================================
+# Scrollback Settings
+# =============================================================================
+# スクロールバックバッファ
+scrollback-limit = 10485760
+
+# =============================================================================
+# Keybindings
+# =============================================================================
+# タブ操作のキーバインド
+
+# 新規タブ作成 (Cmd+T)
+keybind = super+t=new_tab
+
+# タブを閉じる (Cmd+W) - デフォルトで確認ダイアログあり
+keybind = super+w=close_surface
+
+# 次のタブへ移動 (Cmd+J)
+keybind = super+j=next_tab
+
+# 前のタブへ移動 (Cmd+K)
+keybind = super+k=previous_tab

@@ -73,9 +73,9 @@ symbol = ' '
 
 [character]
 # fish の場合
-#success_symbol = "[ ❯](green)"
-#error_symbol = "[❮](#ff00ff)"
-#vicmd_symbol = "[ ❯](#00ffff)"
+# success_symbol = "[ ❯](green)"
+# error_symbol = "[❮](#ff00ff)"
+# vicmd_symbol = "[ ❯](#00ffff)"
 
 # nushell の場合
 success_symbol = "[](green)"

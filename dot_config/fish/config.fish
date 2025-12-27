@@ -58,9 +58,6 @@ fish_add_path $HOME/.local/bin
 # Go
 fish_add_path $HOME/go/bin
 
-# Python自動仮想環境切り替え
-source ~/.config/fish/functions/autoActivateVenv.fish
-
 # ===============================================
 # 略語の初期化 / Abbreviations Initialization
 # ===============================================
