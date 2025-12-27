@@ -57,7 +57,14 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
     foreground = "#FFFFFF"
   end
   local edge_foreground = background
-  local title = "   " .. wezterm.truncate_right(tab.active_pane.title, max_width - 1) .. "   "
+
+  -- タブタイトルの優先順位: 手動設定 > 自動生成
+  local tab_title = tab.tab_title
+  if not tab_title or #tab_title == 0 then
+    tab_title = tab.active_pane.title
+  end
+
+  local title = "   " .. wezterm.truncate_right(tab_title, max_width - 1) .. "   "
   return {
     { Background = { Color = edge_background } },
     { Foreground = { Color = edge_foreground } },
@@ -107,6 +114,19 @@ config.keys = {
     mods = 'CMD',
     action = wezterm.action.IncreaseFontSize
   },
+  -- タブの名前変更
+  {
+      key = 'e',
+      mods = 'CMD',
+      action = wezterm.action.PromptInputLine {
+            description = 'Enter new name for tab:',
+            action = wezterm.action_callback(function(window, pane, line)
+                if line then
+                    window:active_tab():set_title(line)
+                end
+            end),
+        },
+  }
 }
 
 return config
