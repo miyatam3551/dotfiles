@@ -53,3 +53,31 @@ export def --env mkcd [dir: string] {
   mkdir $dir
   cd $dir
 }
+
+# ===============================================
+# cdh の設定
+# ディレクトリ履歴から fzf で選択して移動
+# ===============================================
+export def --env cdh [] {
+  let history_file = ($nu.home-path | path join ".config/nushell/cd_history.txt")
+
+  # 履歴ファイルが存在しない場合は作成
+  if not ($history_file | path exists) {
+    touch $history_file
+  }
+
+  # 履歴ファイルから重複を削除して逆順（新しい順）で表示し、fzf で選択
+  let selected = (
+    open $history_file
+    | lines
+    | reverse
+    | uniq
+    | str join "\n"
+    | fzf --height 40% --reverse --prompt "cd > "
+  )
+
+  # 選択されたディレクトリに移動
+  if ($selected | str trim | is-not-empty) {
+    cd ($selected | str trim)
+  }
+}

@@ -28,9 +28,10 @@ brew "telnet"
 brew "oha" 
 
 # 🖥️ シェル・ターミナル環境
-brew "nushell" 
+brew "nushell"
 brew "starship"
-brew "tmux"    
+brew "tmux"
+brew "fzf"
 cask "wezterm"
 
 # 📝 エディタ・ドキュメント

@@ -117,6 +117,25 @@ $env.config.hooks.pre_prompt = (
 )
 
 # ===============================================
+# cd 履歴の記録
+# ディレクトリ変更時に履歴ファイルに記録
+# ===============================================
+
+$env.config.hooks.env_change = (
+    $env.config.hooks.env_change?
+    | default {}
+    | upsert PWD {|config|
+        $config.PWD?
+        | default []
+        | append {|before, after|
+            let history_file = ($nu.home-path | path join ".config/nushell/cd_history.txt")
+            # 現在のディレクトリを履歴に追加（改行付き）
+            $"($after)\n" | save --append --raw $history_file
+        }
+    }
+)
+
+# ===============================================
 # Carapace 補完設定
 # https://carapace.sh/
 # ===============================================
