@@ -27,7 +27,9 @@ export alias cl = clear
 # Git
 export alias gs = git status
 export alias ga = git add
-export alias gc = git commit
+export alias gc = git commit -m
+export alias gd = git diff
+export alias gac = git add . and git commit -m
 export alias gps = git push
 export alias gpl = git pull
 export alias gsw = git switch
