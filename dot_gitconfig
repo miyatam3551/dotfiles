@@ -1,44 +1,104 @@
+# ============================================================
+# ユーザー情報（最重要）
+# ============================================================
 [user]
-    name=miyatam3551
-    email=miyatam3551@gmail.com
+    # ユーザー名（コミット作成者として記録される）
+    name = miyatam3551
+    # メールアドレス（コミット作成者として記録される）
+    email = miyatam3551@gmail.com
+    # SSH署名用の公開鍵（コミットの署名検証に使用）
     signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIApUhXltc8k4zKHi6hYhWWzt3rTAHz+iid6+cQkqnRBM
 
+# ============================================================
+# セキュリティ・認証設定
+# ============================================================
+[gpg]
+    # GPG署名のフォーマット（SSH鍵を使用）
+    format = ssh
+
+[gpg "ssh"]
+    # SSH署名プログラム（1Passwordを使用）
+    program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+
+[commit]
+    # コミット時に自動的にGPG署名を行う
+    gpgsign = true
+
+[credential]
+    # 認証情報ヘルパーをリセット
+    helper =
+    # Git Credential Managerを使用（パスワード管理）
+    helper = /usr/local/share/gcm-core/git-credential-manager
+
+[credential "https://dev.azure.com"]
+    # Azure DevOps用の設定（リポジトリごとに認証情報を保存）
+    useHttpPath = true
+
+[credential "https://git-codecommit.ap-northeast-1.amazonaws.com"]
+    # AWS CodeCommit用の設定（汎用プロバイダーを使用）
+    provider = generic
+
+# ============================================================
+# コア設定
+# ============================================================
+[core]
+    # ページャーにdeltaを使用（見やすいdiff表示）
+    pager = delta
+    # シンボリックリンクを有効化
+    symlinks = true
+    # デフォルトエディタにvimを使用
+    editor = vim
+
 [init]
+    # 新規リポジトリのデフォルトブランチ名
     defaultBranch = main
 
-[core]
-    pager = delta
-	symlinks = true
+# ============================================================
+# ブランチ・ワークフロー設定
+# ============================================================
+[pull]
+    # pullの際にrebaseを使用（マージコミットを作らない）
+    rebase = true
 
-[interactive]
-    diffFilter = delta --color-only
-[add.interactive]
-    useBuiltin = false # required for git 2.37.0
+[push]
+    # 現在のブランチを同名のリモートブランチにプッシュ
+    default = current
 
+[fetch]
+    # fetchの際にリモートで削除されたブランチをローカルからも削除
+    prune = true
+
+# ============================================================
+# Diff/Merge表示設定
+# ============================================================
 [delta]
-    navigate = true    # use n and N to move between diff sections
-    light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
+    # diff内のナビゲーションを有効化（n/Nで移動可能）
+    navigate = true
+    # ダークモード用の配色を使用
+    light = false
+    # 左右分割表示を使用（変更前後を並べて表示）
     side-by-side = true
 
+[interactive]
+    # インタラクティブモードでdeltaを使用（色のみ）
+    diffFilter = delta --color-only
+
+[add.interactive]
+    # 古いインタラクティブ追加UIを使用
+    useBuiltin = false
+
 [merge]
+    # マージコンフリクト時に3方向diff形式で表示（base, ours, theirs）
     conflictstyle = diff3
 
 [diff]
+    # コードの移動を検出して色分け表示
     colorMoved = default
+
+# ============================================================
+# エイリアス（便利なショートカット）
+# ============================================================
 [alias]
+    # グラフ形式でコミット履歴を表示
     graph = log --graph --date-order -C -M --pretty=format:\"<%h> %ad [%an] %Cgreen%d%Creset %s\" --all --date=short
-[fetch]
-	prune = true
-[gpg]
-	format = ssh
-[gpg "ssh"]
-	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
-[commit]
-	gpgsign = true
-[credential]
-	helper = 
-	helper = /usr/local/share/gcm-core/git-credential-manager
-[credential "https://dev.azure.com"]
-	useHttpPath = true
-[credential "https://git-codecommit.ap-northeast-1.amazonaws.com"]
-	provider = generic
+
