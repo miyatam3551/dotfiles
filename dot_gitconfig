@@ -43,6 +43,7 @@
 # ============================================================
 [core]
     # ページャーにdeltaを使用（見やすいdiff表示）
+    # cargo install git-delta
     pager = delta
     # シンボリックリンクを有効化
     symlinks = true
@@ -59,10 +60,6 @@
 [pull]
     # pullの際にrebaseを使用（マージコミットを作らない）
     rebase = true
-
-[push]
-    # 現在のブランチを同名のリモートブランチにプッシュ
-    default = current
 
 [fetch]
     # fetchの際にリモートで削除されたブランチをローカルからも削除
@@ -83,12 +80,8 @@
     # インタラクティブモードでdeltaを使用（色のみ）
     diffFilter = delta --color-only
 
-[add.interactive]
-    # 古いインタラクティブ追加UIを使用
-    useBuiltin = false
-
 [merge]
-    # マージコンフリクト時に3方向diff形式で表示（base, ours, theirs）
+    # マージコンフリクト時にbase(変更前の元内容)も表示する
     conflictstyle = diff3
 
 [diff]
