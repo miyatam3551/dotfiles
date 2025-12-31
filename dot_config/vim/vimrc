@@ -78,6 +78,7 @@ Jetpack 'vim-scripts/ReplaceWithRegister' " Replace motion with register (gr) | 
 Jetpack 'preservim/nerdtree' " File tree explorer (:NERDTreeToggle) 
 Jetpack 'bullets-vim/bullets.vim' " Auto-bullets for markdown | マークダウンの自動箇条書き
 Jetpack 'github/copilot.vim' " GitHub Copilot AI assistance
+Jetpack 'neoclide/coc.nvim', {'branch': 'release'} " Intellisense engine for code completion | コード補完のためのインテリセンスエンジン
 
 " ==========================================================
 " colorscheme
@@ -90,6 +91,8 @@ autocmd ColorScheme * highlight CursorColumn ctermbg=236
 autocmd ColorScheme * highlight EasyMotionTarget ctermfg=160
 autocmd ColorScheme * highlight EasyMotionTarget2First ctermfg=39
 autocmd ColorScheme * highlight EasyMotionTarget2Second ctermfg=31
+autocmd ColorScheme * highlight CocListLine ctermbg=6
+autocmd ColorScheme * highlight CocMenuSel ctermbg=240
 colorscheme molokai
 set background=dark 
 highlight LineNr ctermfg=240
@@ -169,3 +172,18 @@ inoremap <S-Tab> <C-d>
 
 " w!!: Force save with sudo (for write-protected files) | w!!:sudoで強制保存（書き込み保護ファイル用）
 cmap w!! w !sudo tee > /dev/null %
+
+" ==========================================================
+" coc.nvim 設定 
+" ==========================================================
+let g:coc_config_home = '~/.config/vim' " coc.nvim設定ファイルの場所
+
+" 定義ジャンプ
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gD <Plug>(coc-references)
+
+" ドキュメント表示
+nnoremap <silent> <Leader>k :call CocAction('doHover')<CR>
+
+" 補完メニューでのEnterキー動作
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
