@@ -167,6 +167,10 @@ noremap <Down> <Nop>
 noremap <Up> <Nop>
 noremap <Right> <C-w><C->>
 
+" Copilot の提案候補を Ctrl+j/k で選択 | Use Ctrl+j/k to navigate Copilot suggestions
+imap <C-j> <Plug>(copilot-next)
+imap <C-k> <Plug>(copilot-previous)
+
 " Shift+Tab in insert mode: Decrease indent | インサートモードでShift+Tab:インデントを減らす
 inoremap <S-Tab> <C-d>
 
