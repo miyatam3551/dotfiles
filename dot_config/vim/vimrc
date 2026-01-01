@@ -66,7 +66,7 @@ Jetpack 'tpope/vim-commentary' " Comment toggling (gc) | コメントのトグ�
 Jetpack 'tpope/vim-surround' " Surround text objects (ysiw, cs, ds, vS) | テキストオブジェクトの囲み操作
 Jetpack 'tpope/vim-repeat' " Enable . repeat for plugin commands | プラグインコマンドの.リピート有効化
 Jetpack 'junegunn/vim-easy-align' " Align text by delimiter (ga) | 区切り文字でテキスト整列
-Jetpack 'jiangmiao/auto-pairs' " Auto-close brackets/quotes | 括弧/引用符の自動閉じ
+" Jetpack 'jiangmiao/auto-pairs' " Auto-close brackets/quotes | 括弧/引用符の自動閉じ
 Jetpack 'machakann/vim-highlightedyank' " Visual feedback when yanking | ヤンク時の視覚的フィードバック
 Jetpack 'vim-airline/vim-airline-themes' " Statusline themes | ステータスラインテーマ
 Jetpack 'dag/vim-fish' " Syntax highlighting for fish shell | fishシェルのシンタックスハイライト
