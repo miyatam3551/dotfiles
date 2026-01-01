@@ -3,10 +3,12 @@
 # ===============================================
 
 # AI/開発ツール
-export alias q = q chat --model claude-4-sonnet
 export alias cc = claude
 
-# Python/パッケージ管理
+# パッケージ管理
+export alias mi = mise install
+export alias mr = mise run
+export alias mu = mise use
 export alias python = python3
 export alias uvr = uv run
 export alias uvs = uv sync
@@ -20,9 +22,6 @@ export alias mp = multipass
 export alias d = docker
 export alias dc = docker compose
 export alias k = kubectl
-
-# ユーティリティ
-export alias cl = clear
 
 # Git
 export alias gs = git status
@@ -41,6 +40,7 @@ export alias gri = repo-info
 
 # Basic
 export alias rr = rm -r
+export alias cl = clear
 
 # Kubernetes
 export alias k = kubectl
