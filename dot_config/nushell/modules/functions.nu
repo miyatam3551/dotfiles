@@ -81,3 +81,10 @@ export def --env cdh [] {
     cd ($selected | str trim)
   }
 }
+
+# ===============================================
+# AWS SSM Parameter Store からパラメータを取得する関数
+# ===============================================
+export def ssm-params [] {
+    aws ssm describe-parameters | from json | get Parameters | select Name Type LastModifiedDate
+}
