@@ -182,6 +182,23 @@ cmap w!! w !sudo tee > /dev/null %
 " ==========================================================
 let g:coc_config_home = '~/.config/vim' " coc.nvim設定ファイルの場所
 
+" 自動インストールする拡張のリスト
+" 以下の言語サーバーをインストールしてください
+" #1 Rust用 rust-analyzer のインストール
+"   rustup component add rust-analyzer
+"   ln -s (rustup which rust-analyzer) ~/.cargo/bin/rust-analyzer
+" #2 Go言語用 gopls のインストール
+"   go install golang.org/x/tools/gopls@latest
+
+let g:coc_global_extensions = [
+  \ 'coc-pyright',
+  \ 'coc-json',
+  \ 'coc-tsserver',
+  \ 'coc-rust-analyzer',
+  \ 'coc-go',
+  \ 'coc-yaml',
+  \ ]
+
 " 定義ジャンプ
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gD <Plug>(coc-references)
