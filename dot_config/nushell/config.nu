@@ -97,26 +97,6 @@ if not ('~/.config/zoxide/init.nu' | path exists) {
 source ~/.config/zoxide/init.nu
 
 # ===============================================
-# direnv の設定
-# https://www.nushell.sh/cookbook/direnv.html#configuring-direnv
-# ===============================================
-
-$env.config.hooks.pre_prompt = (
-    $env.config.hooks.pre_prompt?
-    | default []
-    | append {||
-        if (which direnv | is-empty) {
-            return
-        }
-
-        direnv export json | from json | default {} | load-env
-        if 'ENV_CONVERSIONS' in $env and 'PATH' in $env.ENV_CONVERSIONS {
-            $env.PATH = do $env.ENV_CONVERSIONS.PATH.from_string $env.PATH
-        }
-    }
-)
-
-# ===============================================
 # cd 履歴の記録
 # ディレクトリ変更時に履歴ファイルに記録
 # ===============================================
