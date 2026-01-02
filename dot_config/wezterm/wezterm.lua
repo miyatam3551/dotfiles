@@ -126,6 +126,11 @@ config.keys = {
                 end
             end),
         },
+  },
+  {
+      key = "Enter", 
+      mods = "SHIFT", 
+      action = wezterm.action{SendString="\x1b\r"}
   }
 }
 
