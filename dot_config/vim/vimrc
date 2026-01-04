@@ -140,6 +140,11 @@ nnoremap <leader>c :%s/<C-r><C-w>//gn<CR>
 " <leader>p: Copy current file's absolute path to clipboard | 現在のファイルの絶対パスをクリップボードにコピー
 nnoremap <leader>p :let @+=expand('%:p')<CR>
 
+" <leader>o/O: Insert blank line below/above without entering insert mode | インサートモードに入らず下/上に空行を挿入
+nnoremap <Leader>o :call append(line('.'), '')<CR>
+nnoremap <Leader>O :call append(line('.')-1, '')<CR>
+
+
 " x/s: Delete without yanking (to black hole register) | ヤンクせずに削除（ブラックホールレジスタへ）
 noremap x "_x
 noremap s "_s
