@@ -5,53 +5,64 @@ chezmoi で管理している個人用 dotfiles
 ## シェル & エディタ
 
 ### `~/.config/nushell/`
+
 - Nushell の設定ファイル
 - `config.nu`: メイン設定（エディタ、プロンプトなど）
 - `env.nu`: 環境変数設定
 - `modules/`: エイリアスや関数のモジュール（chezmoi: `cm`、kubectl: `k` など）
 
 ### `~/.config/fish/`
+
 - バックアップ目的(もう使っていない)
 - Fish シェルの設定ファイル
 - プラグイン設定とカスタム関数を含む
 
 ### `~/.config/vim/vimrc`
+
 - Vim エディタの設定ファイル
 
 ## Git & SSH
 
 ### `~/.gitconfig`
+
 - Git のグローバル設定
 - Delta（差分表示ツール）との連携
 - 1Password による SSH 署名設定
 
 ### `~/.ssh/config.template`
+
 - SSH 接続設定
 
 ## ターミナル & プロンプト
 
 ### `~/.config/wezterm/wezterm.lua`
+
 - WezTerm ターミナルエミュレータの設定
 - 背景画像やフォント、カラースキームの設定
 
 ### `~/.config/starship.toml`
+
 - Starship プロンプトの設定
 - Kubernetes、AWS、Azure のコンテキスト表示対応
 
 ### `~/.config/tmux/tmux.conf`
+
 - tmux ターミナルマルチプレクサの設定
 
 ## macOS ツール
 
 ### `~/.config/karabiner/karabiner.json`
+
 - Karabiner-Elements（キーボードカスタマイズツール）の設定
 
 ### `~/.hammerspoon/`
+
 - Hammerspoon（macOS 自動化ツール）の設定
 
 ## Claude Code
 
 ### `~/.config/claude/`
+
 - Claude Code の設定ファイル
 - `CLAUDE.md`: グローバル指示ファイル
 - `settings.json`: エディタ設定

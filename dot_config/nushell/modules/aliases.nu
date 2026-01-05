@@ -50,3 +50,6 @@ export alias cm = chezmoi
 
 # mkcd (in functions.nu)
 export alias mcd = mkcd
+
+# prettier
+export alias pret = prettier --write "**/*.{json,md,yml,yaml}"
