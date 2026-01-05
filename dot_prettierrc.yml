@@ -1,0 +1,25 @@
+# Prettier 設定ファイル
+
+# 基本設定
+printWidth: 80 # 1行の最大文字数（一般的な推奨値）
+tabWidth: 2 # インデント幅（スペース2つ分）
+useTabs: false # タブ文字ではなくスペースを使用
+
+# ファイルタイプごとの設定オーバーライド
+overrides:
+  - files: "*.json"
+    options:
+      # JSON ファイルは jq と同じように常に複数行でフォーマット
+      # printWidth を 1 にすることで、すべてのプロパティを改行
+      printWidth: 1
+
+  - files: "*.md"
+    options:
+      # Markdown は元の改行を保持（手動での改行制御を尊重）
+      proseWrap: "preserve"
+      printWidth: 80
+
+  - files: ["*.yml", "*.yaml"]
+    options:
+      # YAML は標準的な80文字幅でフォーマット
+      printWidth: 80
