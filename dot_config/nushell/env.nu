@@ -6,6 +6,7 @@
 
 $env.LANG = "en_US.UTF-8"
 $env.EDITOR = "vim"
+$env.SHELL = "/opt/homebrew/bin/nu"
 $env.CLAUDE_CONFIG_DIR = ($env.HOME + '/.config/claude')
 $env.STARSHIP_CONFIG = ($env.HOME + '/.config/starship.toml')
 $env.KUBECONFIG = ($env.HOME + '/.config/kube/config')

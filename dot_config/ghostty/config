@@ -19,7 +19,7 @@ font-size = 20
 # Theme and Color Settings
 # =============================================================================
 # 利用可能なテーマは `ghostty +list-themes` で確認可能
-theme = Solarized Dark Patched
+theme = Raycast Dark
 
 # =============================================================================
 # Window Settings
