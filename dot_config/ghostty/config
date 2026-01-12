@@ -4,7 +4,9 @@
 # Shell Settings
 # =============================================================================
 # デフォルトシェルの設定
-command = /opt/homebrew/bin/fish
+# command = /opt/homebrew/bin/fish
+env = XDG_CONFIG_HOME=/Users/miyatam3551/.config
+command = /opt/homebrew/bin/nu
 
 # =============================================================================
 # Font Settings
