@@ -28,7 +28,7 @@ theme = Raycast Dark
 window-decoration = true
 
 # 背景画像設定
-background-image = ./background.jpg
+background-image = ./background.png
 background-image-opacity = 0.6
 background-image-position = center
 background-image-fit = cover
