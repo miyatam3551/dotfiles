@@ -5,7 +5,7 @@ local inputSourceEnglish = "com.apple.keylayout.ABC"
 local appWatcher = hs.application.watcher.new(function(appName, eventType, appObject)
     if eventType == hs.application.watcher.activated then
         -- WezTerm または Obsidian フォーカス時に英数に変更
-        if appName == "WezTerm" or appName == "Obsidian" then
+        if appName == "Ghostty" or appName == "Obsidian" then
             hs.execute("/opt/homebrew/bin/im-select " .. inputSourceEnglish)
         end
     end
