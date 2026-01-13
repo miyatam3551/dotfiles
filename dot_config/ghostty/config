@@ -13,7 +13,7 @@ command = /opt/homebrew/bin/nu
 # =============================================================================
 # [HackGen35 Console NF, PlemolJP35 Console NF]
 font-family = HackGen35 Console NF
-font-size = 20
+font-size = 16
 
 # =============================================================================
 # Theme and Color Settings
