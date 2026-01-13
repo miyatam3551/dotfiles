@@ -189,6 +189,26 @@
                 "type": "basic"
               }
             ]
+          },
+          {
+            "description": "Caps Lock to Homerow (⌘⇧Space)",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "caps_lock"
+                },
+                "to": [
+                  {
+                    "key_code": "spacebar",
+                    "modifiers": [
+                      "command",
+                      "shift"
+                    ]
+                  }
+                ]
+              }
+            ]
           }
         ]
       },
