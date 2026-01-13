@@ -5,7 +5,7 @@
 # =============================================================================
 # デフォルトシェルの設定
 # command = /opt/homebrew/bin/fish
-env = XDG_CONFIG_HOME=/Users/miyatam3551/.config
+env = XDG_CONFIG_HOME=/Users/miyatam/.config
 command = /opt/homebrew/bin/nu
 
 # =============================================================================
@@ -13,7 +13,7 @@ command = /opt/homebrew/bin/nu
 # =============================================================================
 # [HackGen35 Console NF, PlemolJP35 Console NF]
 font-family = HackGen35 Console NF
-font-size = 16
+font-size = 14
 
 # =============================================================================
 # Theme and Color Settings
