@@ -55,4 +55,4 @@ export alias mcd = mkcd
 export alias pret = prettier --write "**/*.{json,md,yml,yaml}"
 
 # AWS
-export alias sso = aws sso login --use-device-code
+export alias sso = aws sso login --use-device-code --no-browser
