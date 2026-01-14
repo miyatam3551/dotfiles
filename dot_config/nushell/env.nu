@@ -4,7 +4,6 @@
 # 基本環境変数 / Basic Environment Variables
 # ===============================================
 
-$env.TERM = "xterm-256color"
 $env.LANG = "en_US.UTF-8"
 $env.EDITOR = "vim"
 $env.SHELL = "/opt/homebrew/bin/nu"
