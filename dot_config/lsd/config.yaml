@@ -1,0 +1,31 @@
+# 列の順番（よく見るものを左に）
+blocks:
+  - name
+  - git
+  - size
+  - date
+  - permission
+  - user
+
+# アイコン
+icons:
+  when: auto
+  theme: fancy
+  separator: " "
+
+# 日時フォーマット
+date: "+%Y-%m-%d %H:%M"
+
+# サイズ表示
+size: short
+
+# ディレクトリを先に表示
+sorting:
+  dir-grouping: first
+
+# シンボリックリンク先を表示
+symlink-arrow: "⇒"
+
+# Git無視ファイルを薄く表示
+color:
+  when: auto
