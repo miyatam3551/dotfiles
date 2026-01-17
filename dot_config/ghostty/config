@@ -67,3 +67,6 @@ keybind = super+j=next_tab
 
 # 前のタブへ移動 (Cmd+K)
 keybind = super+k=previous_tab
+
+# ClaudeCode で Shift+Enter を押すと[27;2;13~ と入力されてしまうため
+keybind = shift+enter=text:\n
