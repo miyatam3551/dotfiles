@@ -5,8 +5,8 @@
 # =============================================================================
 # デフォルトシェルの設定
 # command = /opt/homebrew/bin/fish
-env = XDG_CONFIG_HOME=/Users/miyatam/.config
-command = /opt/homebrew/bin/nu
+# command = /opt/homebrew/bin/nu
+command = /bin/zsh
 
 # =============================================================================
 # Font Settings

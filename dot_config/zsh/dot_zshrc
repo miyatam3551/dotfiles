@@ -1,0 +1,481 @@
+# ===============================================
+# 基本環境変数 / Basic Environment Variables
+# ===============================================
+
+export LANG="en_US.UTF-8"
+export EDITOR="vim"
+export CLAUDE_CONFIG_DIR="$HOME/.config/claude"
+export STARSHIP_CONFIG="$HOME/.config/starship.toml"
+export KUBECONFIG="$HOME/.config/kube/config"
+export AWS_PROFILE='private-dev'
+
+# ===============================================
+# vi-mode の設定
+# ===============================================
+
+# vi-mode を有効化
+bindkey -v
+
+# vi-mode のプロンプトインジケーター
+# カーソルの形状変更（挿入モード: ビームカーソル、ノーマルモード: ブロックカーソル）
+function zle-keymap-select {
+    if [[ ${KEYMAP} == vicmd ]] || [[ $1 = 'block' ]]; then
+        echo -ne '\e[1 q'  # ブロックカーソル
+    elif [[ ${KEYMAP} == main ]] || [[ ${KEYMAP} == viins ]] || [[ ${KEYMAP} = '' ]] || [[ $1 = 'beam' ]]; then
+        echo -ne '\e[5 q'  # ビームカーソル
+    fi
+}
+zle -N zle-keymap-select
+
+# 行の初期化時にビームカーソルに設定
+function zle-line-init {
+    echo -ne '\e[5 q'
+}
+zle -N zle-line-init
+
+# コマンド実行前にビームカーソルに戻す
+preexec() {
+    echo -ne '\e[5 q'
+}
+
+# ESCキーの遅延を減らす
+export KEYTIMEOUT=1
+
+# ===============================================
+# 履歴設定 / History Configuration
+# ===============================================
+
+HISTFILE=~/.zsh_history
+HISTSIZE=100000
+SAVEHIST=100000
+
+# 履歴オプション
+setopt SHARE_HISTORY           # 複数のターミナル間で履歴を共有
+setopt HIST_IGNORE_DUPS        # 重複したコマンドを履歴に追加しない
+setopt HIST_IGNORE_ALL_DUPS    # 古い重複エントリを削除
+setopt HIST_FIND_NO_DUPS       # 履歴検索で重複を表示しない
+setopt HIST_IGNORE_SPACE       # スペースで始まるコマンドを履歴に追加しない
+setopt HIST_SAVE_NO_DUPS       # 保存時に重複を除外
+setopt HIST_REDUCE_BLANKS      # 余分な空白を削除
+
+# ===============================================
+# パス設定 / PATH Configuration
+# ===============================================
+
+# PATHに追加（重複を避ける）
+typeset -U path  # 重複を自動削除
+
+# Cargo (Rust)
+if [[ -d "$HOME/.cargo/bin" ]]; then
+    path=("$HOME/.cargo/bin" $path)
+fi
+
+# uv, pipx など
+if [[ -d "$HOME/.local/bin" ]]; then
+    path=("$HOME/.local/bin" $path)
+fi
+
+# Go
+if [[ -d "$HOME/go/bin" ]]; then
+    path=("$HOME/go/bin" $path)
+fi
+
+# ===============================================
+# Homebrew
+# ===============================================
+
+if [[ ! -d "/opt/homebrew" ]]; then
+    echo "Installing Homebrew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+
+if [[ -d "/opt/homebrew" ]]; then
+    path=("/opt/homebrew/bin" $path)
+    export HOMEBREW_PREFIX="/opt/homebrew"
+    export HOMEBREW_CELLAR="/opt/homebrew/Cellar"
+    export HOMEBREW_REPOSITORY="/opt/homebrew"
+    export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:"
+    export INFOPATH="/opt/homebrew/share/info${INFOPATH+:$INFOPATH}"
+fi
+
+# ===============================================
+# mise (ランタイムバージョン管理)
+# ===============================================
+
+if command -v mise &> /dev/null; then
+    eval "$(mise activate zsh)"
+fi
+
+# ===============================================
+# Starship プロンプト
+# ===============================================
+
+if command -v starship &> /dev/null; then
+    eval "$(starship init zsh)"
+fi
+
+# ===============================================
+# zoxide (z の代替)
+# ===============================================
+
+if ! command -v zoxide &> /dev/null; then
+    echo "Installing zoxide..."
+    brew install zoxide
+fi
+eval "$(zoxide init zsh)"
+
+# ===============================================
+# fzf の設定
+# ===============================================
+
+if command -v fzf &> /dev/null; then
+    # fzf key bindings and completion
+    if [[ -f ~/.fzf.zsh ]]; then
+        source ~/.fzf.zsh
+    elif [[ -f /opt/homebrew/opt/fzf/shell/key-bindings.zsh ]]; then
+        source /opt/homebrew/opt/fzf/shell/key-bindings.zsh
+        source /opt/homebrew/opt/fzf/shell/completion.zsh
+    fi
+
+    # fzf のデフォルトオプション
+    export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border"
+fi
+
+# ===============================================
+# zsh-autosuggestions (履歴からの候補表示)
+# ===============================================
+
+if [[ ! -f /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
+    echo "Installing zsh-autosuggestions..."
+    brew install zsh-autosuggestions
+fi
+source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+# 候補の色を明るくする (fg=色番号 または fg=#RRGGBB)
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=244'  # TODO(human): 好みの色に調整
+
+# ===============================================
+# zsh-syntax-highlighting (コマンド色分け)
+# ===============================================
+
+if [[ ! -f /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+    echo "Installing zsh-syntax-highlighting..."
+    brew install zsh-syntax-highlighting
+fi
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# 色のカスタマイズ
+# 存在しないコマンド: グリーン（入力途中の状態）
+ZSH_HIGHLIGHT_STYLES[unknown-token]='fg=green'
+# 存在するコマンド: 青・太字
+ZSH_HIGHLIGHT_STYLES[command]='fg=blue,bold'
+# エイリアス: 青・太字
+ZSH_HIGHLIGHT_STYLES[alias]='fg=blue,bold'
+# ビルトインコマンド: 青・太字
+ZSH_HIGHLIGHT_STYLES[builtin]='fg=blue,bold'
+# 関数: 青・太字
+ZSH_HIGHLIGHT_STYLES[function]='fg=blue,bold'
+# パス: シアン・太字（存在するパス）
+ZSH_HIGHLIGHT_STYLES[path]='fg=cyan,bold'
+# 引数（サブコマンド含む）: シアン・細字
+ZSH_HIGHLIGHT_STYLES[default]='fg=cyan'
+
+# ===============================================
+# zsh-abbr (fishライクな省略形展開)
+# ===============================================
+
+if [[ ! -d ~/.local/share/zsh-abbr ]]; then
+    echo "Installing zsh-abbr..."
+    git clone --recursive https://github.com/olets/zsh-abbr.git ~/.local/share/zsh-abbr
+fi
+source ~/.local/share/zsh-abbr/zsh-abbr.zsh
+
+# ===============================================
+# alias の設定
+# ===============================================
+alias ls='lsd'
+alias ll='lsd -la --group-directories-first'
+
+
+# ===============================================
+# yazi の設定
+# yazi を閉じた時に cd を反映させる
+# ===============================================
+function y() {
+    local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+    yazi "$@" --cwd-file="$tmp"
+    if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+        cd -- "$cwd"
+    fi
+    rm -f -- "$tmp"
+}
+
+# ===============================================
+# mkcd の設定
+# ディレクトリを作成して移動
+# ===============================================
+function mkcd() {
+    mkdir -p "$1" && cd "$1"
+}
+
+# ===============================================
+# cdh の設定
+# ディレクトリ履歴から fzf で選択して移動
+# ===============================================
+CD_HISTORY_FILE="$HOME/.config/nushell/cd_history.txt"
+
+# cd時に履歴に記録
+function chpwd() {
+    # 履歴ファイルが存在しない場合は作成
+    [[ -d "$(dirname "$CD_HISTORY_FILE")" ]] || mkdir -p "$(dirname "$CD_HISTORY_FILE")"
+    echo "$PWD" >> "$CD_HISTORY_FILE"
+}
+
+# 履歴からfzfで選択してcd
+function cdh() {
+    if [[ ! -f "$CD_HISTORY_FILE" ]]; then
+        echo "履歴ファイルが存在しません: $CD_HISTORY_FILE"
+        return 1
+    fi
+
+    local selected=$(tac "$CD_HISTORY_FILE" | awk '!seen[$0]++' | fzf --height 40% --reverse --prompt "cd > ")
+    if [[ -n "$selected" ]]; then
+        cd "$selected"
+    fi
+}
+
+# ===============================================
+# ssm-params の設定
+# AWS SSM Parameter Store からパラメータ一覧を取得
+# ===============================================
+function ssm-params() {
+    aws ssm describe-parameters | jq -r '.Parameters[] | [.Name, .Type, .LastModifiedDate] | @tsv' | column -t
+}
+
+# ===============================================
+# ghq 連携関数 / ghq Integration Functions
+# ===============================================
+
+# ===============================================
+# リポジトリ検索・移動
+# fzf を使用してリポジトリをfuzzy検索し、選択したリポジトリに移動
+# ===============================================
+function repos() {
+    if ! command -v ghq &> /dev/null; then
+        echo "Error: ghq is not installed"
+        return 1
+    fi
+
+    if ! command -v fzf &> /dev/null; then
+        echo "Error: fzf is not installed"
+        return 1
+    fi
+
+    # プレビューコマンドを構築（ezaがあれば使用、なければls）
+    local preview_cmd
+    if command -v eza &> /dev/null; then
+        preview_cmd="ghq list --full-path --exact {} | xargs eza --tree --level=2"
+    else
+        preview_cmd="ghq list --full-path --exact {} | xargs ls -la"
+    fi
+
+    local repo=$(ghq list | fzf --preview="$preview_cmd")
+    if [[ -n "$repo" ]]; then
+        local repo_path=$(ghq list --full-path | grep "$repo" | head -n 1)
+        cd "$repo_path"
+    fi
+}
+
+# ===============================================
+# ghqルートディレクトリに移動
+# ===============================================
+function repo-root() {
+    if ! command -v ghq &> /dev/null; then
+        echo "Error: ghq is not installed"
+        return 1
+    fi
+
+    local ghq_root=$(ghq root)
+    cd "$ghq_root"
+}
+
+# ===============================================
+# リポジトリをクローン
+# ghq get のラッパー。GitHub shorthand（user/repo）またはURLを指定
+# ===============================================
+function repo-clone() {
+    if ! command -v ghq &> /dev/null; then
+        echo "Error: ghq is not installed"
+        return 1
+    fi
+
+    local repo="$1"
+    local update_flag=""
+
+    # -u または --update フラグをチェック
+    if [[ "$2" == "-u" || "$2" == "--update" ]]; then
+        update_flag="-u"
+    fi
+
+    if [[ -z "$repo" ]]; then
+        echo "Usage: repo-clone <repo> [-u|--update]"
+        return 1
+    fi
+
+    # shorthand形式（user/repo）かどうかを判定
+    local is_shorthand=false
+    if [[ "$repo" == */* ]] && [[ "$repo" != git@* ]] && [[ "$repo" != http* ]]; then
+        is_shorthand=true
+    fi
+
+    local clone_url="$repo"
+
+    if [[ "$is_shorthand" == true ]]; then
+        # ~/.ssh/config からGitHubホストを取得
+        local github_hosts=($(grep "^Host github" ~/.ssh/config 2>/dev/null | awk '{print $2}'))
+
+        if [[ ${#github_hosts[@]} -eq 0 ]]; then
+            echo "エラー: ~/.ssh/config にGitHubホストが見つかりません"
+            return 1
+        fi
+
+        local selected_host
+        if [[ ${#github_hosts[@]} -gt 1 ]]; then
+            # 複数ある場合は選択させる（fzfを使用）
+            if command -v fzf &> /dev/null; then
+                selected_host=$(printf "%s\n" "${github_hosts[@]}" | fzf --prompt "GitHubアカウントを選択: ")
+            else
+                selected_host="${github_hosts[1]}"
+            fi
+        else
+            selected_host="${github_hosts[1]}"
+        fi
+
+        if [[ -z "$selected_host" ]]; then
+            return 1
+        fi
+
+        # SSH URL形式に変換
+        clone_url="git@${selected_host}:${repo}.git"
+    fi
+
+    # クローン実行
+    if [[ -n "$update_flag" ]]; then
+        ghq get -u "$clone_url"
+    else
+        ghq get "$clone_url"
+    fi
+
+    # クローン後、そのディレクトリに移動
+    local repo_name=$(basename "$repo" .git)
+    local repo_path=$(ghq list --full-path | grep "$repo_name" | head -n 1)
+
+    if [[ -n "$repo_path" ]]; then
+        echo "リポジトリをクローンしました: $repo_path"
+        cd "$repo_path"
+    fi
+}
+
+# ===============================================
+# 現在のリポジトリ情報を表示
+# パス、origin URL、現在のブランチ、リモートブランチなどを表示
+# ===============================================
+function repo-info() {
+    if [[ ! -d ".git" ]]; then
+        echo "現在のディレクトリはGitリポジトリではありません"
+        return 1
+    fi
+
+    local repo_path=$(pwd)
+    local ghq_root=$(ghq root 2>/dev/null)
+
+    # ghq管理下かチェック
+    local is_ghq_repo="false"
+    if [[ -n "$ghq_root" ]] && [[ "$repo_path" == "$ghq_root"* ]]; then
+        is_ghq_repo="true"
+    fi
+
+    # Git情報を取得
+    local branch=$(git branch --show-current 2>/dev/null)
+    local origin=$(git remote get-url origin 2>/dev/null)
+    local remote_branch=$(git rev-parse --abbrev-ref --symbolic-full-name '@{u}' 2>/dev/null)
+
+    echo "=== リポジトリ情報 ==="
+    echo "パス: $repo_path"
+    echo "ghq管理: $is_ghq_repo"
+    echo "Origin: $origin"
+    echo "現在のブランチ: $branch"
+    if [[ -n "$remote_branch" ]]; then
+        echo "リモートブランチ: $remote_branch"
+    fi
+
+    # コミット状態
+    local status=$(git status --short 2>/dev/null)
+    if [[ -z "$status" ]]; then
+        echo "ステータス: クリーン (変更なし)"
+    else
+        echo "ステータス: 変更あり"
+        echo "$status"
+    fi
+}
+
+# ===============================================
+# エイリアス設定 / Aliases
+# ===============================================
+
+# AI/開発ツール
+alias cc='claude'
+
+# Python/パッケージ管理
+alias python='python3'
+
+# インフラツール
+alias mp='multipass'
+
+# ユーティリティ
+alias cl='clear'
+
+# ghq (リポジトリ管理)
+alias gr='repos'
+alias grr='repo-root'
+alias grc='repo-clone'
+alias gri='repo-info'
+
+# mkcd (in functions)
+alias mcd='mkcd'
+
+# ===============================================
+# 補完設定 / Completion Configuration
+# ===============================================
+
+# 補完機能を有効化
+autoload -Uz compinit
+compinit
+
+# 補完オプション
+setopt AUTO_LIST           # 補完候補を一覧表示
+setopt AUTO_MENU           # 補完候補をメニューから選択
+setopt LIST_PACKED         # 補完候補を詰めて表示
+setopt COMPLETE_IN_WORD    # 単語の途中でも補完
+setopt ALWAYS_TO_END       # 補完後にカーソルを末尾に移動
+
+# 大文字小文字を区別しない補完
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+
+# 補完候補をカラー表示
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+
+# ===============================================
+# その他のオプション / Other Options
+# ===============================================
+
+# ディレクトリ移動
+setopt AUTO_CD             # ディレクトリ名だけで移動
+setopt AUTO_PUSHD          # cd時に自動でpushdを実行
+setopt PUSHD_IGNORE_DUPS   # pushdで重複を無視
+
+# エラー訂正
+setopt CORRECT             # コマンドのスペル訂正
+
+# グロブ
+setopt EXTENDED_GLOB       # 拡張グロブを有効化
+

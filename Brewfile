@@ -32,6 +32,9 @@ brew "nushell"
 brew "starship"
 brew "tmux"
 brew "fzf"
+brew "zoxide"
+brew "zsh-autosuggestions"
+brew "zsh-syntax-highlighting"
 cask "wezterm"
 
 # 📝 エディタ・ドキュメント
@@ -40,9 +43,10 @@ cask "obsidian"
 cask "libreoffice"
 
 # 🛠️ ファイル操作・管理
-brew "lsd"     
-brew "tree"   
-brew "yazi"  
+brew "lsd"
+brew "eza"
+brew "tree"
+brew "yazi"
 brew "p7zip"
 
 # ⚙️ 開発環境管理

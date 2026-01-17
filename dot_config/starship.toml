@@ -1,5 +1,5 @@
 format = """
-[](fg:#7aa2f7)$os[ ](fg:#7aa2f7)$hostname $directory $git_branch $git_status $git_metrics\
+[](fg:#7aa2f7)$os[ ](fg:#7aa2f7)$hostname$directory $git_branch $git_status $git_metrics\
 $fill\
 $battery [](fg:#9ece6a)$kubernetes[](fg:#9ece6a)[](fg:#9ece6a)$aws$azure[](fg:#9ece6a) 
 $character
@@ -21,7 +21,7 @@ Debian = "  " # nf-linux-debian
 ssh_only = true          # SSH接続時のみ表示する場合は true
 trim_at = '.'             # 最初の '.' までを表示（FQDN を短縮）
 style = 'fg:#7aa2f7'
-format = '[$hostname]($style)'
+format = '[$hostname]($style) '
 disabled = false
 
 [username]
@@ -79,15 +79,15 @@ disabled = false
 symbol = ' '
 
 [character]
-# fish の場合
-# success_symbol = "[ ❯](green)"
-# error_symbol = "[❮](#ff00ff)"
-# vicmd_symbol = "[ ❯](#00ffff)"
+# nushell 以外の場合
+success_symbol = "[ ❯](green)"
+error_symbol = "[❮](#ff00ff)"
+vicmd_symbol = "[ ❯](#00ffff)"
 
 # nushell の場合
-success_symbol = "[](green)"
-error_symbol = "[](#ff00ff)"
-vicmd_symbol = "[](#00ffff)"
+# success_symbol = "[](green)"
+# error_symbol = "[](#ff00ff)"
+# vicmd_symbol = "[](#00ffff)"
 
 [memory_usage]
 disabled = false
