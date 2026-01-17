@@ -1,4 +1,6 @@
-abbr "cm"="chezmoi"
+abbr "cmap"="chezmoi apply"
+abbr "cmcd"="chezmoi cd"
+abbr "cmed"="chezmoi edit"
 abbr "d"="docker"
 abbr "dc"="docker compose"
 abbr "ga"="git add"
