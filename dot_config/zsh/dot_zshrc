@@ -288,7 +288,7 @@ function repos() {
 # ===============================================
 # ghqルートディレクトリに移動
 # ===============================================
-function repo-root() {
+function ghq-root() {
     if ! command -v ghq &> /dev/null; then
         echo "Error: ghq is not installed"
         return 1
@@ -296,6 +296,19 @@ function repo-root() {
 
     local ghq_root=$(ghq root)
     cd "$ghq_root"
+}
+
+# ===============================================
+# リポジトリルートに移動
+# サブディレクトリからリポジトリのルートに移動
+# ===============================================
+function repo-root() {
+    local root=$(git rev-parse --show-toplevel 2>/dev/null)
+    if [[ -z "$root" ]]; then
+        echo "Error: 現在のディレクトリはGitリポジトリではありません"
+        return 1
+    fi
+    cd "$root"
 }
 
 # ===============================================
@@ -436,9 +449,10 @@ alias cl='clear'
 
 # ghq (リポジトリ管理)
 alias gr='repos'
-alias grr='repo-root'
+alias grr='ghq-root'
 alias grc='repo-clone'
 alias gri='repo-info'
+alias grt='repo-root'
 
 # mkcd (in functions)
 alias mcd='mkcd'
