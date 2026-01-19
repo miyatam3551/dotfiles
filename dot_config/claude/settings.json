@@ -141,7 +141,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "afplay /Users/miyatam/Music/metroid_item_get.mov"
+            "command": "afplay /Users/miyatam/Music/metroid_item_get.mp3"
           }
         ]
       }
