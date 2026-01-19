@@ -29,6 +29,7 @@ zle -N zle-keymap-select
 
 # 行の初期化時にビームカーソルに設定
 function zle-line-init {
+    zle -K viins  # 常に挿入モードで開始
     echo -ne '\e[5 q'
 }
 zle -N zle-line-init
@@ -40,6 +41,11 @@ preexec() {
 
 # ESCキーの遅延を減らす
 export KEYTIMEOUT=1
+
+bindkey -M viins '^?' backward-delete-char  # Backspace
+bindkey -M viins '^H' backward-delete-char  # Ctrl+H
+bindkey -M viins '^W' backward-kill-word    # Ctrl+W で単語削除
+bindkey -M viins '^U' backward-kill-line    # Ctrl+U で行頭まで削除
 
 # ===============================================
 # 履歴設定 / History Configuration
