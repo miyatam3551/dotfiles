@@ -116,8 +116,8 @@ autocmd FileType markdown nnoremap <buffer> <BS> :call ObsidianBacklinks()<CR>
 set grepprg=rg\ --vimgrep\ --no-heading
 set grepformat=%f:%l:%c:%m
 
-" QuickFix: Enter でジャンプ後に自動で閉じる
-autocmd FileType qf nnoremap <buffer> <CR> <CR>:cclose<CR>
+" QuickFix: Enter でジャンプ後に自動で閉じる & カーソル行ハイライト
+autocmd FileType qf setlocal cursorline | nnoremap <buffer> <CR> <CR>:cclose<CR>
 
 " ===========================================================
 " plugin
@@ -167,10 +167,12 @@ autocmd ColorScheme * highlight EasyMotionTarget2First ctermfg=39
 autocmd ColorScheme * highlight EasyMotionTarget2Second ctermfg=31
 autocmd ColorScheme * highlight CocListLine ctermbg=6
 autocmd ColorScheme * highlight CocMenuSel ctermbg=240
+autocmd ColorScheme * highlight! link QuickFixLine NONE
 colorscheme molokai
-set background=dark 
+set background=dark
 highlight LineNr ctermfg=240
 highlight Visual ctermfg=gray
+highlight! link QuickFixLine NONE
 
 " ==========================================================
 " plugin settings
