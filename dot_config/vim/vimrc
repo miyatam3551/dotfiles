@@ -86,6 +86,32 @@ endfunction
 " Enter で Wiki リンクジャンプ
 autocmd FileType markdown nnoremap <buffer> <CR> :call ObsidianGotoFile()<CR>
 
+" Backspace で現在のファイルへのバックリンクを検索
+function! ObsidianBacklinks()
+  " 現在のファイル名（拡張子なし）を取得
+  let l:filename = expand('%:t:r')
+  if l:filename == ''
+    echo 'No file name'
+    return
+  endif
+  " [[ファイル名]] パターンで検索
+  let l:pattern = '\[\[' . l:filename . '\]\]'
+  " grep 実行（QuickFix に結果を格納）
+  silent execute 'grep! ' . shellescape(l:pattern) . ' .'
+  redraw!
+  " 結果に応じて動作を分岐
+  let l:qflist = getqflist()
+  if len(l:qflist) == 1
+    cfirst
+  elseif len(l:qflist) > 1
+    copen
+  else
+    echo 'No backlinks found for: ' . l:filename
+  endif
+endfunction
+" Backspace でバックリンク検索
+autocmd FileType markdown nnoremap <buffer> <BS> :call ObsidianBacklinks()<CR>
+
 " ripgrep を grep として使用（高速 & 再帰検索）
 set grepprg=rg\ --vimgrep\ --no-heading
 set grepformat=%f:%l:%c:%m
