@@ -237,6 +237,29 @@ function mkcd() {
 }
 
 # ===============================================
+# ripgrep-edit の設定
+# rg で検索 → fzf で選択 → vim で開く
+# ===============================================
+function ripgrep-edit() {
+    if [[ -z "$1" ]]; then
+        echo "Usage: ripgrep-edit <pattern> [rg options]"
+        return 1
+    fi
+
+    # rg で検索して fzf に渡す
+    local result=$(rg --line-number --no-heading --color=always "$@" | \
+        fzf --ansi --delimiter ':' \
+            --preview 'bat --color=always --highlight-line {2} {1} 2>/dev/null || head -100 {1}' \
+            --preview-window 'up,50%,+{2}-5')
+
+    if [[ -n "$result" ]]; then
+        local file=$(echo "$result" | cut -d':' -f1)
+        local line=$(echo "$result" | cut -d':' -f2)
+        vim "+$line" "$file"
+    fi
+}
+
+# ===============================================
 # cdh の設定
 # ディレクトリ履歴から fzf で選択して移動
 # ===============================================
@@ -475,6 +498,12 @@ alias grt='repo-root'
 
 # mkcd (in functions)
 alias mcd='mkcd'
+
+# ripgrep-edit (rg + fzf + vim)
+alias re='ripgrep-edit'
+
+# prettier (json, md, yaml をフォーマット)
+alias fmt='prettier --write "**/*.{json,md,yml,yaml}"'
 
 # ===============================================
 # 補完設定 / Completion Configuration
