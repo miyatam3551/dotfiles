@@ -2,10 +2,18 @@ language en_US.UTF-8
 let mapleader = "\<Space>"
 
 " --- setting for display ------------------------
+if !empty($SSH_CONNECTION)
+  " SSH接続時: OSC 52 を使う
+  let g:oscyank_term = 'default'
+  autocmd TextYankPost * if v:event.operator is 'y' | call OSCYank(getreg(v:event.regname)) | endif
+else
+  " ローカル: 通常のクリップボード
+  set clipboard^=unnamedplus
+  set clipboard+=unnamed
+endif
+
 set nowrap " Disable line wrapping at window edge | ウィンドウ端での行折り返しを無効化
 set clipboard&
-set clipboard^=unnamedplus
-set clipboard+=unnamed
 set number
 set laststatus=2 " Always show status line (displays file path and cursor position) | ステータスラインを常に表示（ファイルパスとカーソル位置を表示）
 set encoding=UTF-8
@@ -158,6 +166,7 @@ Jetpack 'github/copilot.vim' " GitHub Copilot AI assistance
 Jetpack 'neoclide/coc.nvim', {'branch': 'release'} " Intellisense engine for code completion | コード補完のためのインテリセンスエンジン
 Jetpack 'preservim/vim-markdown'
 Jetpack 'hashivim/vim-terraform'
+Jetpack 'ojroques/vim-oscyank' " Copy to system clipboard over SSH using OSC 52 | SSH越しにOSC 52でシステムクリップボードへコピー
 
 " ==========================================================
 " colorscheme
