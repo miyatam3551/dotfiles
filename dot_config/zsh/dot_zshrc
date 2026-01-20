@@ -42,6 +42,19 @@ preexec() {
 # ESCキーの遅延を減らす
 export KEYTIMEOUT=1
 
+# text objects を有効化（ciw, ci', ca" など）
+autoload -Uz select-bracketed select-quoted
+zle -N select-bracketed
+zle -N select-quoted
+for km in viopp visual; do
+  for c in {a,i}${(s..)^:-\'\"\`\|,./:;=+@}; do
+    bindkey -M $km $c select-quoted
+  done
+  for c in {a,i}${(s..)^:-'()[]{}<>bB'}; do
+    bindkey -M $km $c select-bracketed
+  done
+done
+
 bindkey -M viins '^?' backward-delete-char  # Backspace
 bindkey -M viins '^H' backward-delete-char  # Ctrl+H
 bindkey -M viins '^W' backward-kill-word    # Ctrl+W で単語削除
