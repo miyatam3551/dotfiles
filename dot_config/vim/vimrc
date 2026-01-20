@@ -20,6 +20,20 @@ let &t_SI.="\e[5 q"
 let &t_EI.="\e[1 q"
 let &t_te.="\e[0 q"
 
+" Markdown のコードブロック用
+filetype plugin on
+filetype indent on
+let g:vim_markdown_fenced_languages = [
+\ 'bash=sh',
+\ 'sh',
+\ 'python',
+\ 'javascript',
+\ 'json',
+\ 'yaml',
+\ 'terraform=tf',
+\ 'hcl'
+\]
+
 " --- setting for search -------------------------
 set hlsearch
 set incsearch
@@ -79,6 +93,8 @@ Jetpack 'preservim/nerdtree' " File tree explorer (:NERDTreeToggle)
 Jetpack 'bullets-vim/bullets.vim' " Auto-bullets for markdown | マークダウンの自動箇条書き
 Jetpack 'github/copilot.vim' " GitHub Copilot AI assistance
 Jetpack 'neoclide/coc.nvim', {'branch': 'release'} " Intellisense engine for code completion | コード補完のためのインテリセンスエンジン
+Jetpack 'preservim/vim-markdown'
+Jetpack 'hashivim/vim-terraform'
 
 " ==========================================================
 " colorscheme
