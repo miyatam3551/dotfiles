@@ -75,8 +75,13 @@ function! ObsidianGotoFile()
       break
     endif
     if l:col >= l:match[1] && l:col < l:match[2]
-      " リンク名を抽出（[[ と ]] を除去）して .md を追加
+      " リンク名を抽出（[[ と ]] を除去）
       let l:link = l:match[0][2:-3]
+      " 画像リンク（Pasted image）はスキップ
+      if l:link =~# '^Pasted image'
+        echo 'Image link: ' . l:link
+        return
+      endif
       execute 'edit ' . fnameescape(l:link . '.md')
       return
     endif
