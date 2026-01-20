@@ -12,17 +12,17 @@
 # ============================================================
 # セキュリティ・認証設定
 # ============================================================
-[gpg]
-    # GPG署名のフォーマット（SSH鍵を使用）
-    format = ssh
+; [gpg]
+;     # GPG署名のフォーマット（SSH鍵を使用）
+;     format = ssh
 
-[gpg "ssh"]
-    # SSH署名プログラム（1Passwordを使用）
-    program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+; [gpg "ssh"]
+;     # SSH署名プログラム（1Passwordを使用）
+;     program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
 
-[commit]
-    # コミット時に自動的にGPG署名を行う
-    gpgsign = true
+; [commit]
+;     # コミット時に自動的にGPG署名を行う
+;     gpgsign = true
 
 [credential]
     # 認証情報ヘルパーをリセット
