@@ -33,6 +33,7 @@ let g:vim_markdown_fenced_languages = [
 \ 'terraform=tf',
 \ 'hcl'
 \]
+let g:vim_markdown_folding_disabled = 1 " vim-markdown の折りたたみを無効化
 
 " --- setting for search -------------------------
 set hlsearch
@@ -60,6 +61,37 @@ let g:bullets_enabled_file_types = ['markdown', 'text', 'gitcommit', 'scratch']
 " Fix backspace behavior on macOS to allow deletion across lines/indents | macOSでのバックスペース動作を修正（行/インデントをまたいで削除可能に）
 " Reference: https://wonderwall.hatenablog.com/entry/2016/03/23/232634
 set backspace=indent,eol,start
+
+" --- Obsidian Wiki Link Support ---
+" Enter で [[リンク名]] のファイルを開く（スペース含むリンクにも対応）
+function! ObsidianGotoFile()
+  let l:line = getline('.')
+  let l:col = col('.') - 1
+  " カーソル位置を含む [[...]] を探す
+  let l:pos = 0
+  while 1
+    let l:match = matchstrpos(l:line, '\[\[[^\]]\+\]\]', l:pos)
+    if l:match[1] == -1
+      break
+    endif
+    if l:col >= l:match[1] && l:col < l:match[2]
+      " リンク名を抽出（[[ と ]] を除去）して .md を追加
+      let l:link = l:match[0][2:-3]
+      execute 'edit ' . fnameescape(l:link . '.md')
+      return
+    endif
+    let l:pos = l:match[2]
+  endwhile
+endfunction
+" Enter で Wiki リンクジャンプ
+autocmd FileType markdown nnoremap <buffer> <CR> :call ObsidianGotoFile()<CR>
+
+" ripgrep を grep として使用（高速 & 再帰検索）
+set grepprg=rg\ --vimgrep\ --no-heading
+set grepformat=%f:%l:%c:%m
+
+" QuickFix: Enter でジャンプ後に自動で閉じる
+autocmd FileType qf nnoremap <buffer> <CR> <CR>:cclose<CR>
 
 " ===========================================================
 " plugin
