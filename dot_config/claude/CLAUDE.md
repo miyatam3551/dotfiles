@@ -1,7 +1,7 @@
 # Environment
 
 - macOS or Ubuntu(WSL)
-- shell: nushell
+- shell: zsh
 - editor: vim
 
 # General Rule
