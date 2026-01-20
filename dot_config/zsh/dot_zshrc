@@ -541,3 +541,10 @@ setopt CORRECT             # コマンドのスペル訂正
 # グロブ
 setopt EXTENDED_GLOB       # 拡張グロブを有効化
 
+# ===============================================
+# SSH切断対策用
+# ===============================================
+# SSH接続時に自動で tmux にアタッチ（なければ新規作成）
+if [[ -z "$TMUX" ]] && [[ -n "$SSH_CONNECTION" ]]; then
+    tmux attach -t default || tmux new -s default
+fi
