@@ -13,7 +13,6 @@ else
 endif
 
 set nowrap " Disable line wrapping at window edge | ウィンドウ端での行折り返しを無効化
-set clipboard&
 set number
 set laststatus=2 " Always show status line (displays file path and cursor position) | ステータスラインを常に表示（ファイルパスとカーソル位置を表示）
 set encoding=UTF-8
