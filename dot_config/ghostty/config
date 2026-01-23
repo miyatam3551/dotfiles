@@ -11,8 +11,9 @@ command = /bin/zsh
 # =============================================================================
 # Font Settings
 # =============================================================================
-# [HackGen35 Console NF, PlemolJP35 Console NF]
-font-family = HackGen35 Console NF
+# [UDEV Gothic 35NF, HackGen35 Console NF, PlemolJP35 Console NF]
+# brew install --cask font-udev-gothic-nf
+font-family = UDEV Gothic 35NF
 font-size = 18
 
 # =============================================================================
