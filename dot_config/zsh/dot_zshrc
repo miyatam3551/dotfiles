@@ -212,7 +212,7 @@ source ~/.local/share/zsh-abbr/zsh-abbr.zsh
 # alias の設定
 # ===============================================
 alias ls='lsd'
-alias ll='lsd -la --group-directories-first'
+alias ll='lsd -la --group-directories-first --no-symlink'
 
 
 # ===============================================
