@@ -475,6 +475,209 @@ function repo-info() {
 }
 
 # ===============================================
+# 7zz の設定
+# fzf を使用して 7z の圧縮・解凍を選択式で実行
+# ===============================================
+function 7zz() {
+    # 7z コマンドの存在確認
+    if ! command -v 7z &> /dev/null; then
+        echo "Error: 7z is not installed"
+        echo "Install with: brew install p7zip"
+        return 1
+    fi
+
+    # fzf コマンドの存在確認
+    if ! command -v fzf &> /dev/null; then
+        echo "Error: fzf is not installed"
+        return 1
+    fi
+
+    # 引数がある場合：拡張子で圧縮/解凍を自動判定
+    if [[ -n "$1" ]]; then
+        if [[ "$1" =~ \.(7z|zip|tar\.gz|tgz|tar\.bz2|tar\.xz|rar|gz|bz2|xz)$ ]]; then
+            # アーカイブファイル → 解凍
+            _7zz_extract_file "$1"
+        else
+            # それ以外 → 圧縮
+            _7zz_compress_file "$1"
+        fi
+        return
+    fi
+
+    # 引数なし：従来のメニュー選択
+    local action=$(printf '%s\n' "compress" "extract" "list" | \
+        fzf --header "7z インタラクティブモード - 操作を選択してください" \
+            --height 20% --reverse)
+
+    [[ -z "$action" ]] && return 0
+
+    case "$action" in
+        "compress")
+            _7zz_compress
+            ;;
+        "extract")
+            _7zz_extract
+            ;;
+        "list")
+            _7zz_list
+            ;;
+    esac
+}
+
+# 圧縮サブ関数
+function _7zz_compress() {
+    # ファイル/フォルダを選択（複数選択可）
+    local selected=$(ls -A | fzf --multi \
+        --header "圧縮するファイル/フォルダを選択 (Tab: 複数選択, Enter: 確定)" \
+        --preview 'if [[ -d {} ]]; then ls -la {}; else file {} && head -20 {}; fi' \
+        --preview-window 'right,50%')
+
+    [[ -z "$selected" ]] && return 0
+
+    # 選択されたファイルを配列に変換
+    local -a files
+    files=("${(@f)selected}")
+
+    # 圧縮形式を選択
+    local format=$(printf '%s\n' "7z" "zip" | fzf --header "圧縮形式を選択" --height=~50%)
+    [[ -z "$format" ]] && return 0
+
+    # デフォルトの出力ファイル名（最初の選択ファイル名.形式）
+    local default_name="${files[1]}.${format}"
+
+    # 出力ファイル名を入力
+    echo -n "出力ファイル名 [$default_name]: "
+    read output_name
+    output_name="${output_name:-$default_name}"
+
+    # 拡張子がなければ追加
+    [[ "$output_name" != *."$format" ]] && output_name="${output_name}.${format}"
+
+    # 圧縮実行
+    echo "圧縮中: ${files[*]} -> $output_name"
+    7z a "$output_name" "${files[@]}"
+
+    if [[ $? -eq 0 ]]; then
+        echo "圧縮完了: $output_name"
+        ls -lh "$output_name"
+    else
+        echo "圧縮に失敗しました"
+        return 1
+    fi
+}
+
+# 引数指定での圧縮サブ関数
+function _7zz_compress_file() {
+    local target="$1"
+
+    if [[ ! -e "$target" ]]; then
+        echo "ファイル/フォルダが見つかりません: $target"
+        return 1
+    fi
+
+    # 圧縮形式を選択
+    local format=$(printf '%s\n' "7z" "zip" | fzf --header "圧縮形式を選択" --height=~50%)
+    [[ -z "$format" ]] && return 0
+
+    local output_name="${target}.${format}"
+
+    echo "圧縮中: $target -> $output_name"
+    7z a "$output_name" "$target"
+
+    if [[ $? -eq 0 ]]; then
+        echo "圧縮完了: $output_name"
+        ls -lh "$output_name"
+    else
+        echo "圧縮に失敗しました"
+        return 1
+    fi
+}
+
+# 引数指定での解凍サブ関数
+function _7zz_extract_file() {
+    local archive="$1"
+
+    if [[ ! -f "$archive" ]]; then
+        echo "アーカイブが見つかりません: $archive"
+        return 1
+    fi
+
+    # アーカイブ名から拡張子を除去してフォルダ名を作成
+    local folder="${archive%.*}"
+    # 二重拡張子対応（.tar.gz など）
+    [[ "$folder" == *.tar ]] && folder="${folder%.tar}"
+
+    echo "解凍中: $archive → $folder/"
+    mkdir -p "$folder"
+    7z x -o"$folder" "$archive"
+
+    if [[ $? -eq 0 ]]; then
+        echo "解凍完了: $folder/"
+    else
+        echo "解凍に失敗しました"
+        return 1
+    fi
+}
+
+# 解凍サブ関数（fzf選択版）
+function _7zz_extract() {
+    # 圧縮ファイルを検索
+    local archives=$(ls -1 2>/dev/null | grep -E '\.(7z|zip|tar\.gz|tgz|tar\.bz2|tar\.xz|rar|gz|bz2|xz)$')
+
+    if [[ -z "$archives" ]]; then
+        echo "カレントディレクトリに圧縮ファイルが見つかりません"
+        return 1
+    fi
+
+    # アーカイブを選択（プレビューで中身を表示）
+    local selected=$(echo "$archives" | fzf \
+        --header "解凍するアーカイブを選択" \
+        --preview '7z l {} 2>/dev/null | tail -30' \
+        --preview-window 'right,60%')
+
+    [[ -z "$selected" ]] && return 0
+
+    # アーカイブ名から拡張子を除去してフォルダ名を作成
+    local folder="${selected%.*}"
+    # 二重拡張子対応（.tar.gz など）
+    [[ "$folder" == *.tar ]] && folder="${folder%.tar}"
+
+    # 解凍実行
+    echo "解凍中: $selected → $folder/"
+    mkdir -p "$folder"
+    7z x -o"$folder" "$selected"
+
+    if [[ $? -eq 0 ]]; then
+        echo "解凍完了"
+    else
+        echo "解凍に失敗しました"
+        return 1
+    fi
+}
+
+# 一覧表示サブ関数
+function _7zz_list() {
+    # 圧縮ファイルを検索
+    local archives=$(ls -1 2>/dev/null | grep -E '\.(7z|zip|tar\.gz|tgz|tar\.bz2|tar\.xz|rar|gz|bz2|xz)$')
+
+    if [[ -z "$archives" ]]; then
+        echo "カレントディレクトリに圧縮ファイルが見つかりません"
+        return 1
+    fi
+
+    # アーカイブを選択
+    local selected=$(echo "$archives" | fzf \
+        --header "一覧表示するアーカイブを選択" \
+        --preview '7z l {} 2>/dev/null | tail -30' \
+        --preview-window 'right,60%')
+
+    [[ -z "$selected" ]] && return 0
+
+    # 一覧表示
+    7z l "$selected"
+}
+
+# ===============================================
 # エイリアス設定 / Aliases
 # ===============================================
 
