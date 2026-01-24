@@ -213,6 +213,7 @@ source ~/.local/share/zsh-abbr/zsh-abbr.zsh
 # ===============================================
 alias ls='lsd'
 alias ll='lsd -la --group-directories-first --no-symlink'
+alias lls='lsd -la -t'
 
 
 # ===============================================
