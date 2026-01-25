@@ -74,7 +74,7 @@
     # ダークモード用の配色を使用
     light = false
     # 左右分割表示を使用（変更前後を並べて表示）
-    side-by-side = true
+    side-by-side = false
 
 [interactive]
     # インタラクティブモードでdeltaを使用（色のみ）
