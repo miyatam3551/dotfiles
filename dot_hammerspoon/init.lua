@@ -31,7 +31,7 @@ local function focusApp(appName)
 end
 
 -- キーバインド
-hs.hotkey.bind(hyper, "s", function() focusApp("Ghostty") end)
-hs.hotkey.bind(hyper, "d", function() focusApp("Arc") end)
-hs.hotkey.bind(hyper, "f", function() focusApp("Obsidian") end)
-hs.hotkey.bind(hyper, "g", function() focusApp("Claude") end)
+hs.hotkey.bind(hyper, "f", function() focusApp("Ghostty") end)
+hs.hotkey.bind(hyper, "d", function() focusApp("Obsidian") end)
+hs.hotkey.bind(hyper, "s", function() focusApp("Arc") end)
+hs.hotkey.bind(hyper, "a", function() focusApp("Claude") end)
