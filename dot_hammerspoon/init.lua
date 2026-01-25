@@ -17,3 +17,21 @@ hs.hotkey.bind({}, "F15", function()
   hs.eventtap.keyStroke({"cmd"}, "space", 0)
 end)
 
+-- Hyper key の定義
+local hyper = {"ctrl", "shift", "alt", "cmd"}
+
+-- アプリにフォーカス（なければ起動）
+local function focusApp(appName)
+    local app = hs.application.find(appName)
+    if app then
+        app:activate()
+    else
+        hs.application.launchOrFocus(appName)
+    end
+end
+
+-- キーバインド
+hs.hotkey.bind(hyper, "s", function() focusApp("Ghostty") end)
+hs.hotkey.bind(hyper, "d", function() focusApp("Arc") end)
+hs.hotkey.bind(hyper, "f", function() focusApp("Obsidian") end)
+hs.hotkey.bind(hyper, "g", function() focusApp("Claude") end)
