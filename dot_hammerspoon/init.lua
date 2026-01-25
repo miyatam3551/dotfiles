@@ -31,7 +31,21 @@ local function focusApp(appName)
 end
 
 -- キーバインド
+hs.hotkey.bind(hyper, "a", function() focusApp("Arc") end)
+hs.hotkey.bind(hyper, "b", function() focusApp("Kindle") end)
+hs.hotkey.bind(hyper, "c", function() focusApp("Claude") end)
 hs.hotkey.bind(hyper, "f", function() focusApp("Ghostty") end)
-hs.hotkey.bind(hyper, "d", function() focusApp("Obsidian") end)
-hs.hotkey.bind(hyper, "s", function() focusApp("Arc") end)
-hs.hotkey.bind(hyper, "a", function() focusApp("Claude") end)
+hs.hotkey.bind(hyper, "g", function() focusApp("chatGPT Atlas") end)
+hs.hotkey.bind(hyper, "o", function() focusApp("Obsidian") end)
+hs.hotkey.bind(hyper, "s", function()
+    local app = hs.application.find("Slack")
+    if app then
+        app:activate()
+        hs.timer.doAfter(0.1, function()
+            -- Slack ですべての未読メッセージに移動
+            hs.eventtap.keyStroke({"cmd", "shift"}, "a")
+        end)
+    else
+        hs.application.launchOrFocus("Slack")
+    end
+end)
