@@ -68,7 +68,7 @@ config.window_background_image_hsb = {
 
 -- タブバー設定
 config.enable_tab_bar = true
-config.hide_tab_bar_if_only_one_tab = true
+config.hide_tab_bar_if_only_one_tab = false  -- タブが1つでもステータスラインを表示
 config.use_fancy_tab_bar = false  -- tabline.wez と互換性を保つため false に
 config.tab_bar_at_bottom = true   -- タブバーを下部に配置
 -- スクロールバック
