@@ -23,7 +23,7 @@ config.default_prog = { '/bin/zsh' }
 config.color_scheme = 'Solarized Dark (Gogh)'
 
 -- フォント設定
-config.font = wezterm.font('HackGen35 Console NF', { weight = 'Regular' })
+config.font = wezterm.font('UDEV Gothic 35NF', { weight = 'Regular' })
 config.font_size = 20.0
 
 -- ウィンドウ設定
