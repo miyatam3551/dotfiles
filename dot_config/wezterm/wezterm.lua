@@ -11,6 +11,33 @@ if wezterm.config_builder then
   config = wezterm.config_builder()
 end
 
+-- tabline.wez プラグインを読み込み
+local tabline = wezterm.plugin.require("https://github.com/michaelbrusegard/tabline.wez")
+
+-- 基本セットアップ
+tabline.setup({
+  options = {
+    theme = 'Catppuccin Mocha',  -- テーマ指定
+  },
+  sections = {
+    tabline_a = { 'mode' },           -- 左端: 現在のモード
+    tabline_b = { 'workspace' },      -- ワークスペース名
+    tabline_c = { },
+    tab_active = {
+      'index',                        -- タブ番号
+      { 'parent', padding = 0 },      -- 親ディレクトリ
+      '/',
+      { 'cwd', padding = { left = 0, right = 1 } },
+      { 'zoomed', padding = 0 },
+    },
+    tab_inactive = { 'index', { 'process', padding = { left = 0, right = 1 } } },
+    tabline_x = { 'ram', 'cpu' },     -- システムリソース
+    tabline_y = { 'datetime' },       -- 日時
+    tabline_z = { 'hostname' },       -- 右端: ホスト名
+  },
+})
+tabline.apply_to_config(config)
+
 -- 環境変数設定
 config.set_environment_variables = {
   XDG_CONFIG_HOME = wezterm.home_dir .. '/.config',
@@ -42,42 +69,8 @@ config.window_background_image_hsb = {
 -- タブバー設定
 config.enable_tab_bar = true
 config.hide_tab_bar_if_only_one_tab = true
-config.use_fancy_tab_bar = true
--- タブの左側の装飾
-local SOLID_LEFT_ARROW = wezterm.nerdfonts.ple_lower_right_triangle
--- タブの右側の装飾
-local SOLID_RIGHT_ARROW = wezterm.nerdfonts.ple_upper_left_triangle
-
-wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
-  local background = "#5c6d74"
-  local foreground = "#FFFFFF"
-  local edge_background = "none"
-  if tab.is_active then
-    background = "#ae8b2d"
-    foreground = "#FFFFFF"
-  end
-  local edge_foreground = background
-
-  -- タブタイトルの優先順位: 手動設定 > 自動生成
-  local tab_title = tab.tab_title
-  if not tab_title or #tab_title == 0 then
-    tab_title = tab.active_pane.title
-  end
-
-  local title = "   " .. wezterm.truncate_right(tab_title, max_width - 1) .. "   "
-  return {
-    { Background = { Color = edge_background } },
-    { Foreground = { Color = edge_foreground } },
-    { Text = SOLID_LEFT_ARROW },
-    { Background = { Color = background } },
-    { Foreground = { Color = foreground } },
-    { Text = title },
-    { Background = { Color = edge_background } },
-    { Foreground = { Color = edge_foreground } },
-    { Text = SOLID_RIGHT_ARROW },
-  }
-end)
-
+config.use_fancy_tab_bar = false  -- tabline.wez と互換性を保つため false に
+config.tab_bar_at_bottom = true   -- タブバーを下部に配置
 -- スクロールバック
 config.scrollback_lines = 10000
 
