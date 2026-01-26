@@ -251,9 +251,9 @@ noremap <S-l> $
 vnoremap < <gv
 vnoremap > >gv
 
-"Clear search highlighting | 検索ハイライトをクリア
-" nnoremap <ESC><ESC> :nohlsearch<CR>
-nnoremap <Leader><ESC> :nohlsearch<CR>
+" Clear search highlighting | 検索ハイライトをクリア
+" <Space>n: nohl の n。<Esc> はターミナルによって挙動が異なるため避ける
+nnoremap <Leader>n :nohlsearch<CR>
 
 
 " Disable arrow keys to force hjkl usage (Vim training mode) | hjkl使用を強制するため矢印キーを無効化（Vimトレーニングモード）
