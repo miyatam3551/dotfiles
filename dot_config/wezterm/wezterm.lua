@@ -20,8 +20,8 @@ tabline.setup({
     theme = 'Catppuccin Mocha',  -- テーマ指定
   },
   sections = {
-    tabline_a = { 'mode' },           -- 左端: 現在のモード
-    tabline_b = { 'workspace' },      -- ワークスペース名
+    tabline_a = { },
+    tabline_b = { },
     tabline_c = { },
     tab_active = {
       'index',                        -- タブ番号
