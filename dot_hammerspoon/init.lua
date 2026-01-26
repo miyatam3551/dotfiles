@@ -1,10 +1,14 @@
+-- #########################################################################
+-- アプリケーションフォーカス時に入力ソースを切り替える
+-- #########################################################################
+
 -- 英数入力のID(あなたの環境に合わせて変更)
 local inputSourceEnglish = "com.apple.keylayout.ABC"
 
 -- アプリケーションフォーカス監視
 local appWatcher = hs.application.watcher.new(function(appName, eventType, appObject)
     if eventType == hs.application.watcher.activated then
-        -- WezTerm または Obsidian フォーカス時に英数に変更
+        --  指定アプリへのフォーカス時に英数に変更
         if appName == "Ghostty" or appName == "Obsidian" then
             hs.execute("/opt/homebrew/bin/im-select " .. inputSourceEnglish)
         end
@@ -12,10 +16,18 @@ local appWatcher = hs.application.watcher.new(function(appName, eventType, appOb
 end)
 appWatcher:start()
 
+-- #########################################################################
+-- F15 キーを Command + Space にマッピング
+-- #########################################################################
+
 -- F15 を Command + Space にマッピングする
 hs.hotkey.bind({}, "F15", function()
   hs.eventtap.keyStroke({"cmd"}, "space", 0)
 end)
+
+-- #########################################################################
+-- アプリケーション切り替えショートカット
+-- #########################################################################
 
 -- Hyper key の定義
 local hyper = {"ctrl", "shift", "alt", "cmd"}
