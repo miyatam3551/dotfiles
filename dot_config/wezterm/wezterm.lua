@@ -16,8 +16,8 @@ config.set_environment_variables = {
   XDG_CONFIG_HOME = wezterm.home_dir .. '/.config',
 }
 
--- デフォルトシェルをnushellに設定
-config.default_prog = { '/opt/homebrew/bin/nu' }
+-- デフォルトシェルをzshに設定
+config.default_prog = { '/bin/zsh' }
 
 -- カラースキーム
 config.color_scheme = 'Solarized Dark (Gogh)'
