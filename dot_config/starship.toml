@@ -20,7 +20,7 @@ format = '[ssh:$hostname]($style) '
 disabled = false
 
 [directory]
-truncation_length = 5
+truncation_length = 3
 truncate_to_repo = true
 home_symbol = '~'
 style = 'fg:#7aa2f7'
