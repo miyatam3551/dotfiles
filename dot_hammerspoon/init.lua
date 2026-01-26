@@ -46,7 +46,7 @@ end
 hs.hotkey.bind(hyper, "a", function() focusApp("Arc") end)
 hs.hotkey.bind(hyper, "b", function() focusApp("Kindle") end)
 hs.hotkey.bind(hyper, "c", function() focusApp("Claude") end)
-hs.hotkey.bind(hyper, "f", function() focusApp("Ghostty") end)
+hs.hotkey.bind(hyper, "f", function() focusApp("WezTerm") end)
 hs.hotkey.bind(hyper, "g", function() focusApp("chatGPT Atlas") end)
 hs.hotkey.bind(hyper, "o", function() focusApp("Obsidian") end)
 hs.hotkey.bind(hyper, "s", function()
