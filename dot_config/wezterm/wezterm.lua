@@ -30,7 +30,7 @@ tabline.setup({
       { 'cwd', padding = { left = 0, right = 1 } },
       { 'zoomed', padding = 0 },
     },
-    tab_inactive = { 'index', { 'cwd', padding = { left = 0, right = 1 } } },
+    tab_inactive = { 'index', 'process', ':', { 'cwd', padding = { left = 0, right = 1 } } },
     tabline_x = { 'ram', 'cpu' },  -- システムリソース
     tabline_y = { 'battery', { 'datetime', style = '%d %a %H:%M' } },  -- バッテリー、日時
     tabline_z = { 'hostname' },       -- 右端: ホスト名
