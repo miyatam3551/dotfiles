@@ -66,6 +66,12 @@ config.window_background_image_hsb = {
   saturation = 1.0,  -- 彩度（0.0-1.0）
 }
 
+-- 非アクティブペインの視覚的区別
+config.inactive_pane_hsb = {
+  saturation = 0.8,  -- 彩度を下げる
+  brightness = 0.4,  -- 明るさを下げる
+}
+
 -- タブバー設定
 config.enable_tab_bar = true
 config.hide_tab_bar_if_only_one_tab = false  -- タブが1つでもステータスラインを表示
