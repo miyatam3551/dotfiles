@@ -678,11 +678,40 @@ function _7zz_list() {
 }
 
 # ===============================================
+# MCP テンプレート切り替え
+# fzf を使用して MCP 設定テンプレートを選択
+# ===============================================
+function mcpset() {
+    local templates_dir="$HOME/.config/claude/.mcp-templates"
+    local target="$HOME/obsidian/.mcp.json"
+
+    # テンプレートディレクトリの確認
+    if [[ ! -d "$templates_dir" ]]; then
+        echo "Error: テンプレートディレクトリが見つかりません: $templates_dir"
+        return 1
+    fi
+
+    # fzf でテンプレートを選択
+    local selected=$(ls "$templates_dir"/*.mcp.json 2>/dev/null | \
+        xargs -n1 basename | \
+        fzf --header "MCP テンプレートを選択" --height 40% --reverse)
+
+    [[ -z "$selected" ]] && return 0
+
+    # シンボリックリンクを作成（既存リンクは上書き）
+    ln -sf "$templates_dir/$selected" "$target"
+
+    echo "MCP テンプレートを切り替えました: $selected"
+    ls -la "$target"
+}
+
+# ===============================================
 # エイリアス設定 / Aliases
 # ===============================================
 
 # AI/開発ツール
 alias cc='claude'
+alias mcp='mcpset'
 
 # Python/パッケージ管理
 alias python='python3'

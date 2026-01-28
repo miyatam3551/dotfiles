@@ -1,0 +1,26 @@
+{
+  "mcpServers": {
+    "aws-knowledge": {
+      "type": "http",
+      "url": "https://knowledge-mcp.global.api.aws"
+    },
+    "strands": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": ["strands-agents-mcp-server"],
+      "env": {}
+    },
+    "bedrock-agentcore-mcp-server": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": ["awslabs.amazon-bedrock-agentcore-mcp-server@latest"],
+      "env": {
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      }
+    },
+    "context7": {
+      "type": "http",
+      "url": "https://context7.liam.sh/mcp"
+    }
+  }
+}
