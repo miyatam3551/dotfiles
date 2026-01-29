@@ -11,33 +11,6 @@ if wezterm.config_builder then
   config = wezterm.config_builder()
 end
 
--- tabline.wez プラグインを読み込み
-local tabline = wezterm.plugin.require("https://github.com/michaelbrusegard/tabline.wez")
-
--- 基本セットアップ
-tabline.setup({
-  options = {
-    theme = 'Catppuccin Mocha',  -- テーマ指定
-  },
-  sections = {
-    tabline_a = { },
-    tabline_b = { },
-    tabline_c = { },
-    tab_active = {
-      'index',
-      { 'cwd', padding = { left = 0, right = 1 } },
-    },
-    tab_inactive = {
-      'index',
-      { 'cwd', padding = { left = 0, right = 1 } },
-    },
-    tabline_x = { },  -- tmuxで表示するため無効化
-    tabline_y = { },
-    tabline_z = { },
-  },
-})
-tabline.apply_to_config(config)
-
 -- 環境変数設定
 config.set_environment_variables = {
   XDG_CONFIG_HOME = wezterm.home_dir .. '/.config',
@@ -72,11 +45,9 @@ config.inactive_pane_hsb = {
   brightness = 0.4,  -- 明るさを下げる
 }
 
--- タブバー設定
-config.enable_tab_bar = true
-config.hide_tab_bar_if_only_one_tab = false  -- タブが1つでもステータスラインを表示
-config.use_fancy_tab_bar = false  -- tabline.wez と互換性を保つため false に
-config.tab_bar_at_bottom = false   -- タブバーを下部に配置
+-- タブバーを非表示（tmuxを使用）
+config.enable_tab_bar = false
+
 -- スクロールバック
 config.scrollback_lines = 10000
 
@@ -86,61 +57,15 @@ config.cursor_blink_rate = 500
 
 -- キーバインド
 config.keys = {
-  -- タブ操作
-  {
-    key = 't',
-    mods = 'CMD',
-    action = wezterm.action.SpawnTab 'CurrentPaneDomain',
-  },
-  {
-    key = 'w',
-    mods = 'CMD',
-    action = wezterm.action.CloseCurrentTab { confirm = true },
-  },
-  -- タブ間移動
-  {
-    key = 'j',
-    mods = 'CMD',
-    action = wezterm.action.ActivateTabRelative(1),
-  },
-  {
-    key = 'k',
-    mods = 'CMD',
-    action = wezterm.action.ActivateTabRelative(-1),
-  },
   {
     key = '+',
     mods = 'CMD',
     action = wezterm.action.IncreaseFontSize
   },
-  -- タブの名前変更
-  {
-      key = 'e',
-      mods = 'CMD',
-      action = wezterm.action.PromptInputLine {
-            description = 'Enter new name for tab:',
-            action = wezterm.action_callback(function(window, pane, line)
-                if line then
-                    window:active_tab():set_title(line)
-                end
-            end),
-        },
-  },
   {
       key = "Enter",
       mods = "SHIFT",
       action = wezterm.action{SendString="\x1b\r"}
-  },
-  -- ペイン間移動
-  {
-    key = 'h',
-    mods = 'CMD',
-    action = wezterm.action.ActivatePaneDirection 'Left',
-  },
-  {
-    key = 'l',
-    mods = 'CMD',
-    action = wezterm.action.ActivatePaneDirection 'Right',
   },
 }
 
