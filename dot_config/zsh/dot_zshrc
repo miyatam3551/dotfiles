@@ -779,6 +779,9 @@ setopt EXTENDED_GLOB       # 拡張グロブを有効化
 # tmux 自動起動
 # ===============================================
 # ターミナル起動時に自動で tmux にアタッチ（なければ新規作成）
+# -z "$TMUX"       : tmux内でない（無限ループ防止）
+# -t 0             : 標準入力がTTY（スクリプトやパイプ経由での起動を除外）
+# -n "$SSH_CONNECTION" を追加するとSSH接続時のみ発動
 if [[ -z "$TMUX" ]] && [[ -t 0 ]]; then
     tmux attach -t default || tmux new -s default
 fi
