@@ -191,7 +191,7 @@
             ]
           },
           {
-            "description": "Caps Lock to Homerow (⌘⇧Space)",
+            "description": "Caps Lock to Ctrl+Space (tmux prefix)",
             "manipulators": [
               {
                 "type": "basic",
@@ -201,10 +201,7 @@
                 "to": [
                   {
                     "key_code": "spacebar",
-                    "modifiers": [
-                      "command",
-                      "shift"
-                    ]
+                    "modifiers": ["left_control"]
                   }
                 ]
               }
