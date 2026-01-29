@@ -191,7 +191,7 @@
             ]
           },
           {
-            "description": "Caps Lock to Ctrl+Space (tmux prefix)",
+            "description": "Caps Lock to Ctrl+Space (tmux prefix) + 英数切替",
             "manipulators": [
               {
                 "type": "basic",
@@ -202,6 +202,9 @@
                   {
                     "key_code": "spacebar",
                     "modifiers": ["left_control"]
+                  },
+                  {
+                    "key_code": "japanese_eisuu"
                   }
                 ]
               }

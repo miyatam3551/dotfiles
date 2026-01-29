@@ -166,6 +166,7 @@ Jetpack 'neoclide/coc.nvim', {'branch': 'release'} " Intellisense engine for cod
 Jetpack 'preservim/vim-markdown'
 Jetpack 'hashivim/vim-terraform'
 Jetpack 'ojroques/vim-oscyank' " Copy to system clipboard over SSH using OSC 52 | SSH越しにOSC 52でシステムクリップボードへコピー
+Jetpack 'christoomey/vim-tmux-navigator' " Seamless vim/tmux pane navigation with Ctrl-hjkl | Ctrl-hjklでvim/tmuxペイン間をシームレス移動
 
 " ==========================================================
 " colorscheme
@@ -237,9 +238,6 @@ nnoremap <Leader>O :call append(line('.')-1, '')<CR>
 " x/s: Delete without yanking (to black hole register) | ヤンクせずに削除（ブラックホールレジスタへ）
 noremap x "_x
 noremap s "_s
-
-" <C-j>: Join lines (remap from default J, since J is for 10j below) | 行を結合（デフォルトのJから再マップ、Jは下の10j用）
-noremap <C-j> J
 
 " Shift+hjkl: Fast movement (10 lines or to line start/end) | 高速移動（10行移動または行頭/行末へ）
 noremap <S-j> 10j
