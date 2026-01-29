@@ -31,9 +31,9 @@ tabline.setup({
       'index',
       { 'cwd', padding = { left = 0, right = 1 } },
     },
-    tabline_x = { 'ram', 'cpu' },  -- システムリソース
-    tabline_y = { 'battery' },  -- バッテリー
-    tabline_z = { 'hostname' },       -- 右端: ホスト名
+    tabline_x = { },  -- tmuxで表示するため無効化
+    tabline_y = { },
+    tabline_z = { },
   },
 })
 tabline.apply_to_config(config)
