@@ -84,9 +84,6 @@ config.scrollback_lines = 10000
 config.default_cursor_style = 'BlinkingBlock'
 config.cursor_blink_rate = 500
 
--- Leader キー設定（Vim風）
-config.leader = { key = 'Space', mods = 'CTRL', timeout_milliseconds = 1000 }
-
 -- キーバインド
 config.keys = {
   -- タブ操作
@@ -133,17 +130,6 @@ config.keys = {
       key = "Enter",
       mods = "SHIFT",
       action = wezterm.action{SendString="\x1b\r"}
-  },
-  -- ペイン分割（Leader + キー）
-  {
-    key = '\\',
-    mods = 'LEADER',
-    action = wezterm.action.SplitHorizontal { domain = 'CurrentPaneDomain' },
-  },
-  {
-    key = '-',
-    mods = 'LEADER',
-    action = wezterm.action.SplitVertical { domain = 'CurrentPaneDomain' },
   },
   -- ペイン間移動
   {
