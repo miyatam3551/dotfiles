@@ -736,6 +736,13 @@ alias mcd='mkcd'
 # ripgrep-edit (rg + fzf + vim)
 alias re='ripgrep-edit'
 
+# tmuxinator (セッション管理)
+alias mux='tmuxinator'
+alias muxs='tmuxinator start'
+alias muxo='tmuxinator stop'
+alias muxe='tmuxinator edit'
+alias muxl='tmuxinator list'
+
 # prettier (json, md, yaml をフォーマット)
 alias fmt='prettier --write "**/*.{json,md,yml,yaml}"'
 
@@ -776,12 +783,15 @@ setopt CORRECT             # コマンドのスペル訂正
 setopt EXTENDED_GLOB       # 拡張グロブを有効化
 
 # ===============================================
-# tmux 自動起動
+# tmux 自動起動 (tmuxinator)
 # ===============================================
-# ターミナル起動時に自動で tmux にアタッチ（なければ新規作成）
+# ターミナル起動時に tmuxinator で work/private セッションを起動
 # -z "$TMUX"       : tmux内でない（無限ループ防止）
 # -t 0             : 標準入力がTTY（スクリプトやパイプ経由での起動を除外）
-# -n "$SSH_CONNECTION" を追加するとSSH接続時のみ発動
 if [[ -z "$TMUX" ]] && [[ -t 0 ]]; then
-    tmux attach -t default || tmux new -s default
+    # 両方のセッションを起動（存在しなければ作成）
+    tmux has-session -t work 2>/dev/null || tmuxinator start work -d
+    tmux has-session -t private 2>/dev/null || tmuxinator start private -d
+    # work にアタッチ
+    tmux attach -t work
 fi
