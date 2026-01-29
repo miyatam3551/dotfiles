@@ -718,6 +718,7 @@ alias python='python3'
 
 # インフラツール
 alias mp='multipass'
+alias awsso='aws sso login --use-device-code --no-browser'
 
 # ユーティリティ
 alias cl='clear'
