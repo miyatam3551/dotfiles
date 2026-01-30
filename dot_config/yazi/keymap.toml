@@ -3,6 +3,11 @@
 
 [mgr]
 prepend_keymap = [
+  # === Enter動作 ===
+  # ディレクトリに入る、ファイルは o で開く
+  { on = "<Enter>", run = "enter", desc = "ディレクトリに入る" },
+  { on = "o", run = "open", desc = "ファイルを開く" },
+
   # === 高速移動 ===
   { on = "K", run = "arrow -5", desc = "5行上" },
   { on = "J", run = "arrow 5", desc = "5行下" },
