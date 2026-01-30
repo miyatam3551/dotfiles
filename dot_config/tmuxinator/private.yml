@@ -6,7 +6,6 @@ root: ~/
 
 windows:
   - main:
-      layout: main-horizontal
       panes:
         - # メイン作業用
         - # サブ作業用

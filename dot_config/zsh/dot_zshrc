@@ -790,8 +790,8 @@ setopt EXTENDED_GLOB       # 拡張グロブを有効化
 # -t 0             : 標準入力がTTY（スクリプトやパイプ経由での起動を除外）
 if [[ -z "$TMUX" ]] && [[ -t 0 ]]; then
     # 両方のセッションを起動（存在しなければ作成）
-    tmux has-session -t work 2>/dev/null || tmuxinator start work -d
-    tmux has-session -t private 2>/dev/null || tmuxinator start private -d
+    tmux has-session -t work 2>/dev/null || tmuxinator start work --no-attach
+    tmux has-session -t private 2>/dev/null || tmuxinator start private --no-attach
     # work にアタッチ
     tmux attach -t work
 fi

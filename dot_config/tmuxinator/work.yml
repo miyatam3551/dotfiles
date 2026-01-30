@@ -1,4 +1,4 @@
-# 作業用セッション
+# 仕事用セッション
 # 起動: tmuxinator start work
 # 停止: tmuxinator stop work
 name: work
@@ -6,15 +6,10 @@ root: ~/
 
 windows:
   - main:
-      layout: main-horizontal
       panes:
         - # メイン作業用
         - # サブ作業用
 
   - editor: vim
 
-  - monitor:
-      layout: even-vertical
-      panes:
-        - htop
-        - # ログ確認用
+  - notes: # メモ・ノート用
