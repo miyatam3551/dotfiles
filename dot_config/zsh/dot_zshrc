@@ -323,7 +323,7 @@ function repos() {
 
     local repo=$(ghq list | fzf --preview="$preview_cmd")
     if [[ -n "$repo" ]]; then
-        local repo_path=$(ghq list --full-path | grep "$repo" | head -n 1)
+        local repo_path=$(ghq list --full-path --exact "$repo")
         cd "$repo_path"
     fi
 }
