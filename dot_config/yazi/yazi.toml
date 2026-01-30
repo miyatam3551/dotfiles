@@ -1,0 +1,10 @@
+# Yazi メイン設定 (カスタマイズ部分のみ)
+
+[manager]
+scrolloff = 5  # スクロール時の余白行数
+linemode = "size"
+
+[opener]
+edit = [
+  { run = 'vim "$@"', block = true, for = "unix" },
+]

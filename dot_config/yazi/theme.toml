@@ -1,0 +1,24 @@
+# Yazi テーマ設定 (Tokyo Night風カスタマイズ)
+
+[manager]
+cwd = { fg = "#7aa2f7" }
+tab_active = { fg = "#1a1b26", bg = "#7aa2f7" }
+tab_inactive = { fg = "#a9b1d6", bg = "#24283b" }
+
+[status]
+mode_normal = { fg = "#1a1b26", bg = "#7aa2f7", bold = true }
+mode_select = { fg = "#1a1b26", bg = "#9ece6a", bold = true }
+mode_unset = { fg = "#1a1b26", bg = "#bb9af7", bold = true }
+
+[filetype]
+rules = [
+  { mime = "image/*", fg = "#bb9af7" },
+  { mime = "video/*", fg = "#e0af68" },
+  { mime = "audio/*", fg = "#e0af68" },
+  { mime = "application/zip", fg = "#f7768e" },
+  { mime = "application/gzip", fg = "#f7768e" },
+  { mime = "application/x-tar", fg = "#f7768e" },
+  { mime = "application/pdf", fg = "#f7768e" },
+  { name = "*", fg = "#a9b1d6" },
+  { name = "*/", fg = "#7aa2f7" },
+]
