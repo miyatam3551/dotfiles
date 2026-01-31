@@ -711,7 +711,7 @@ function mcpset() {
 # ===============================================
 function tmux_home() {
     if [[ -n "$TMUX_HOME" ]]; then
-        cd "$TMUX_HOME"
+        cd "${~TMUX_HOME}"
     else
         echo "TMUX_HOME 環境変数が設定されていません"
         return 1
