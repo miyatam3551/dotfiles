@@ -29,38 +29,8 @@
             ]
           },
           {
-            "description": "CTRLキーを単体で押したときに、英数・かなキーを送信する。（左CTRLキーは英数、右CTRLキーはかな）",
+            "description": "右CTRLキーを単体で押したときに、かなキーを送信する",
             "manipulators": [
-              {
-                "from": {
-                  "key_code": "left_control",
-                  "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
-                  }
-                },
-                "parameters": {
-                  "basic.to_if_held_down_threshold_milliseconds": 100
-                },
-                "to": [
-                  {
-                    "key_code": "left_control",
-                    "lazy": true
-                  }
-                ],
-                "to_if_alone": [
-                  {
-                    "key_code": "japanese_eisuu"
-                  }
-                ],
-                "to_if_held_down": [
-                  {
-                    "key_code": "left_control"
-                  }
-                ],
-                "type": "basic"
-              },
               {
                 "from": {
                   "key_code": "right_control",
@@ -203,6 +173,22 @@
                     "key_code": "spacebar",
                     "modifiers": ["left_control"]
                   },
+                  {
+                    "key_code": "japanese_eisuu"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "description": "F19キーを英数キーに変更",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "f19"
+                },
+                "to": [
                   {
                     "key_code": "japanese_eisuu"
                   }
