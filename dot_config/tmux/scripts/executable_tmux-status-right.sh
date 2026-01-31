@@ -4,7 +4,7 @@
 get_flag() {
     local value
     value=$(tmux showenv -g "$1" 2>/dev/null | cut -d= -f2)
-    echo "${value:-1}"
+    echo "${value:-0}"
 }
 
 SHOW_AWS=$(get_flag TMUX_SHOW_AWS)
