@@ -1,10 +1,21 @@
 #!/usr/bin/env bash
 
-# tmux 環境変数からフラグを取得（デフォルト: 1=表示）
+# フラグを取得（優先順位: 1. tmux環境変数 → 2. ペインディレクトリの.env）
 get_flag() {
     local value
+    # 1. tmux グローバル環境変数をチェック
     value=$(tmux showenv -g "$1" 2>/dev/null | cut -d= -f2)
-    echo "${value:-0}"
+    if [[ -n "$value" ]]; then echo "$value"; return; fi
+
+    # 2. アクティブペインのディレクトリの .tmuxenv をチェック
+    local pane_path
+    pane_path=$(tmux display-message -p '#{pane_current_path}' 2>/dev/null)
+    if [[ -n "$pane_path" && -f "$pane_path/.tmuxenv" ]]; then
+        value=$(grep "^$1=" "$pane_path/.tmuxenv" 2>/dev/null | cut -d= -f2)
+        if [[ -n "$value" ]]; then echo "$value"; return; fi
+    fi
+
+    echo "0"
 }
 
 SHOW_AWS=$(get_flag TMUX_SHOW_AWS)
