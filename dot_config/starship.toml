@@ -1,7 +1,6 @@
 format = """
 $hostname$directory $git_branch $git_status $git_metrics\
-$fill\
-$kubernetes$azure$aws
+$fill
 $character
 """
 
@@ -20,8 +19,8 @@ format = '[ssh:$hostname]($style) '
 disabled = false
 
 [directory]
-truncation_length = 3
-truncate_to_repo = true
+truncation_length = 100
+truncate_to_repo = false
 home_symbol = '~'
 style = 'fg:#7aa2f7'
 read_only = ' (ro)'
