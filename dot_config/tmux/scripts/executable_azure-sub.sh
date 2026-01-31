@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 CACHE="$HOME/.cache/tmux-azure-sub"
-TTL=30  # 秒
+TTL=10  # 秒
 
 now=$(date +%s)
 if [[ -f "$CACHE" ]]; then
