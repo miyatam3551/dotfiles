@@ -706,6 +706,19 @@ function mcpset() {
 }
 
 # ===============================================
+# home の設定
+# HOME 環境変数のディレクトリに移動
+# ===============================================
+function home() {
+    if [[ -n "$HOME" ]]; then
+        cd "$HOME"
+    else
+        echo "HOME 環境変数が設定されていません"
+        return 1
+    fi
+}
+
+# ===============================================
 # エイリアス設定 / Aliases
 # ===============================================
 
@@ -722,6 +735,7 @@ alias awsso='aws sso login --use-device-code --no-browser'
 
 # ユーティリティ
 alias cl='clear'
+alias hm='home'
 
 # ghq (リポジトリ管理)
 alias gr='repos'
