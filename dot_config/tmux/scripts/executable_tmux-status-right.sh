@@ -37,19 +37,22 @@ fi
 # 2. CPU/RAM
 if [[ "$SHOW_CPU_RAM" == "1" ]]; then
     get_cpu() {
-        ps -A -o %cpu | awk '{sum+=$1} END {printf "%2.0f%%", sum}'
+        local cpu_sum cores
+        cpu_sum=$(ps -A -o %cpu | awk '{sum+=$1} END {print sum}')
+        cores=$(sysctl -n hw.ncpu)
+        awk "BEGIN {printf \"%2.0f%%\", $cpu_sum / $cores}"
     }
     get_ram() {
-        local pages_free pages_active pages_inactive pages_speculative pages_wired page_size total_pages used_percent
+        local total_bytes page_size pages_anon pages_wired pages_compressed used_bytes used_percent
+        total_bytes=$(sysctl -n hw.memsize)
+        page_size=$(sysctl -n hw.pagesize)
         eval "$(vm_stat | awk -F: '
-            /Pages free/      { gsub(/[^0-9]/, "", $2); print "pages_free=" $2 }
-            /Pages active/    { gsub(/[^0-9]/, "", $2); print "pages_active=" $2 }
-            /Pages inactive/  { gsub(/[^0-9]/, "", $2); print "pages_inactive=" $2 }
-            /Pages speculative/ { gsub(/[^0-9]/, "", $2); print "pages_speculative=" $2 }
-            /Pages wired/     { gsub(/[^0-9]/, "", $2); print "pages_wired=" $2 }
+            /Anonymous pages/             { gsub(/[^0-9]/, "", $2); print "pages_anon=" $2 }
+            /Pages wired/                 { gsub(/[^0-9]/, "", $2); print "pages_wired=" $2 }
+            /Pages occupied by compressor/ { gsub(/[^0-9]/, "", $2); print "pages_compressed=" $2 }
         ')"
-        total_pages=$((pages_free + pages_active + pages_inactive + pages_speculative + pages_wired))
-        used_percent=$(( (pages_active + pages_wired) * 100 / total_pages ))
+        used_bytes=$(( (pages_anon + pages_wired + pages_compressed) * page_size ))
+        used_percent=$(( used_bytes * 100 / total_bytes ))
         printf "%2d%%" "$used_percent"
     }
 
