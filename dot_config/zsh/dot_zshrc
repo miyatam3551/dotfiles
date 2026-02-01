@@ -3,7 +3,7 @@
 # ===============================================
 
 export LANG="en_US.UTF-8"
-export EDITOR="vim"
+export EDITOR="nvim"
 export CLAUDE_CONFIG_DIR="$HOME/.config/claude"
 export STARSHIP_CONFIG="$HOME/.config/starship.toml"
 export KUBECONFIG="$HOME/.config/kube/config"
@@ -725,6 +725,10 @@ function tmux_home() {
 # AI/開発ツール
 alias cc='claude'
 alias mcp='mcpset'
+
+# エディタ
+alias vim='nvim'
+alias v='nvim'
 
 # Python/パッケージ管理
 alias python='python3'
