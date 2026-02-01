@@ -6,5 +6,5 @@ linemode = "size"
 
 [opener]
 edit = [
-  { run = 'vim "$@"', block = true, for = "unix" },
+  { run = '$EDITOR "$@"', block = true, for = "unix" },
 ]
