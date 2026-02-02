@@ -2,6 +2,7 @@
 -- Markdown ファイルでは補完を無効化
 return {
   "saghen/blink.cmp",
+  build = "cargo build --release",
   opts = {
     enabled = function()
       -- Markdown ファイルタイプでは補完を無効化
