@@ -8,3 +8,7 @@ vim.opt.relativenumber = false
 -- カーソル行・カーソル列のハイライト
 vim.opt.cursorline = true -- LazyVimでデフォルト有効だが明示的に設定
 vim.opt.cursorcolumn = true
+
+-- 行の折り返し
+vim.opt.wrap = true           -- 長い行を画面端で折り返す
+vim.opt.linebreak = false     -- 画面端ぴったりで折り返す（単語境界を無視）

@@ -23,17 +23,17 @@ prepend_keymap = [
   { on = ["g", "r"], run = "cd ~/repos", desc = "reposへ" },
 
   # === ソート (s prefix) ===
-  { on = ["s", "m"], run = "sort modified --reverse=no", desc = "更新日時でソート" },
-  { on = ["s", "M"], run = "sort modified --reverse", desc = "更新日時でソート(逆順)" },
-  { on = ["s", "c"], run = "sort created --reverse=no", desc = "作成日時でソート" },
-  { on = ["s", "C"], run = "sort created --reverse", desc = "作成日時でソート(逆順)" },
-  { on = ["s", "e"], run = "sort extension --reverse=no", desc = "拡張子でソート" },
+  { on = ["s", "m"], run = "sort mtime", desc = "更新日時でソート" },
+  { on = ["s", "M"], run = "sort mtime --reverse", desc = "更新日時でソート(逆順)" },
+  { on = ["s", "c"], run = "sort btime", desc = "作成日時でソート" },
+  { on = ["s", "C"], run = "sort btime --reverse", desc = "作成日時でソート(逆順)" },
+  { on = ["s", "e"], run = "sort extension", desc = "拡張子でソート" },
   { on = ["s", "E"], run = "sort extension --reverse", desc = "拡張子でソート(逆順)" },
-  { on = ["s", "a"], run = "sort alphabetical --reverse=no", desc = "名前でソート" },
+  { on = ["s", "a"], run = "sort alphabetical", desc = "名前でソート" },
   { on = ["s", "A"], run = "sort alphabetical --reverse", desc = "名前でソート(逆順)" },
-  { on = ["s", "n"], run = "sort natural --reverse=no", desc = "自然順でソート" },
+  { on = ["s", "n"], run = "sort natural", desc = "自然順でソート" },
   { on = ["s", "N"], run = "sort natural --reverse", desc = "自然順でソート(逆順)" },
-  { on = ["s", "s"], run = "sort size --reverse=no", desc = "サイズでソート" },
+  { on = ["s", "s"], run = "sort size", desc = "サイズでソート" },
   { on = ["s", "S"], run = "sort size --reverse", desc = "サイズでソート(逆順)" },
 
   # === コピーショートカット (c prefix) ===
