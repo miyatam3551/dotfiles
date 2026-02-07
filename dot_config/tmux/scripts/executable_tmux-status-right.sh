@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# フラグを取得（優先順位: 1. tmux環境変数 → 2. ペインディレクトリの.env）
+# フラグを取得（優先順位: 1. tmux環境変数 → 2. ペインディレクトリの.tmuxenv → 3. ~/.tmuxenv）
 get_flag() {
     local value
     # 1. tmux グローバル環境変数をチェック
@@ -12,6 +12,12 @@ get_flag() {
     pane_path=$(tmux display-message -p '#{pane_current_path}' 2>/dev/null)
     if [[ -n "$pane_path" && -f "$pane_path/.tmuxenv" ]]; then
         value=$(grep "^$1=" "$pane_path/.tmuxenv" 2>/dev/null | cut -d= -f2)
+        if [[ -n "$value" ]]; then echo "$value"; return; fi
+    fi
+
+    # 3. ユーザーデフォルト (~/.tmuxenv) をチェック
+    if [[ -f "$HOME/.tmuxenv" ]]; then
+        value=$(grep "^$1=" "$HOME/.tmuxenv" 2>/dev/null | cut -d= -f2)
         if [[ -n "$value" ]]; then echo "$value"; return; fi
     fi
 

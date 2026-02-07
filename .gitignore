@@ -26,7 +26,6 @@ logs
 .env
 .env.*
 !.env.example
-.tmuxenv
 
 # Build output
 dist/
