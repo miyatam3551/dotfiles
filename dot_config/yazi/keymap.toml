@@ -19,8 +19,9 @@ prepend_keymap = [
   { on = ["g", "D"], run = "cd ~/Desktop", desc = "Desktopへ" },
   { on = ["g", "t"], run = "cd /tmp", desc = "/tmpへ" },
   { on = ["g", "/"], run = "cd /", desc = "ルートへ" },
-  { on = ["g", "p"], run = "cd ~/Projects", desc = "Projectsへ" },
-  { on = ["g", "r"], run = "cd ~/repos", desc = "reposへ" },
+  { on = ["g", "p"], run = "cd ~/ghq/carelacare", desc = "carelacareへ" },
+  { on = ["g", "r"], run = "cd ~/ghq", desc = "ghqへ" },
+  { on = ["g", "o"], run = "cd ~/obsidian", desc = "obsidianへ" },
 
   # === ソート (s prefix) ===
   { on = ["s", "m"], run = "sort mtime", desc = "更新日時でソート" },
