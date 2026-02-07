@@ -22,6 +22,8 @@ prepend_keymap = [
   { on = ["g", "p"], run = "cd ~/ghq/carelacare", desc = "carelacareへ" },
   { on = ["g", "r"], run = "cd ~/ghq", desc = "ghqへ" },
   { on = ["g", "o"], run = "cd ~/obsidian", desc = "obsidianへ" },
+  { on = ["g", "b"], run = "back", desc = "前のディレクトリへ戻る" },
+  { on = ["g", "f"], run = "forward", desc = "次のディレクトリへ進む" },
 
   # === ソート (s prefix) ===
   { on = ["s", "m"], run = "sort mtime", desc = "更新日時でソート" },
