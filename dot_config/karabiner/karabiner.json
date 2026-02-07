@@ -161,22 +161,20 @@
             ]
           },
           {
-            "description": "Caps Lock を Ctrl + 英数切替として使用",
+            "description": "Caps Lock to Ctrl+Space (tmux prefix) + 英数切替",
             "manipulators": [
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "caps_lock",
-                  "modifiers": {
-                    "optional": ["any"]
-                  }
+                  "key_code": "caps_lock"
                 },
                 "to": [
                   {
-                    "key_code": "japanese_eisuu"
+                    "key_code": "spacebar",
+                    "modifiers": ["left_control"]
                   },
                   {
-                    "key_code": "left_control"
+                    "key_code": "japanese_eisuu"
                   }
                 ]
               }
