@@ -8,6 +8,17 @@
 -- e.g. vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
 
 -- ============================================================
+-- .env ファイルのリンター警告を抑制
+-- util.dot が .env を sh として認識し shellcheck が SC2034 を出すのを防ぐ
+-- ============================================================
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = ".env*",
+  callback = function()
+    vim.bo.filetype = "conf"
+  end,
+})
+
+-- ============================================================
 -- 特殊ウィンドウ自動クローズ
 -- :q 時に neo-tree 等の特殊ウィンドウだけが残っている場合、自動で閉じる
 -- https://zenn.dev/vim_jp/articles/ff6cd224fab0c7
