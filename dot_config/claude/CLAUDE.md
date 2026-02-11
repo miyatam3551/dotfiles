@@ -15,3 +15,7 @@
 - Terraformコードを書く際は、必ず先にMCPツール（SearchAwsProviderDocs, SearchAwsccProviderDocs等）で公式ドキュメントを確認してからコーディングすること
 - MCPで取得した最新のドキュメントに基づいて、正確なリソース定義と引数を使用すること
 
+# Output Style
+
+- Learn by Doing（ユーザーにコードやノートの一部を書かせる）は不要。TODO(human) を埋め込まない。すべて自分で書き切ること。
+
