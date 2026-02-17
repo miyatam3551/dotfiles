@@ -161,7 +161,7 @@
             ]
           },
           {
-            "description": "Caps Lock to Ctrl+Space (tmux prefix) + 英数切替",
+            "description": "Caps Lock to Ctrl+b (tmux prefix) + 英数切替",
             "manipulators": [
               {
                 "type": "basic",
@@ -170,7 +170,7 @@
                 },
                 "to": [
                   {
-                    "key_code": "spacebar",
+                    "key_code": "b",
                     "modifiers": ["left_control"]
                   },
                   {
