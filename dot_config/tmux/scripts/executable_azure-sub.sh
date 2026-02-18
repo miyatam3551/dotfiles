@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# mise shims を PATH に追加（非インタラクティブシェルでも az 等を解決するため）
+export PATH="$HOME/.local/share/mise/shims:$PATH"
+
 CACHE="$HOME/.cache/tmux-azure-sub"
 TTL=10  # 秒
 

@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# mise shims を PATH に追加（非インタラクティブシェルでも az/aws 等を解決するため）
+export PATH="$HOME/.local/share/mise/shims:$PATH"
+
 # フラグを取得（優先順位: 1. tmux環境変数 → 2. ペインディレクトリの.tmuxenv → 3. ~/.tmuxenv）
 get_flag() {
     local value
