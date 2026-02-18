@@ -1,24 +1,24 @@
 -- substitute.nvim
--- gr でヤンクした内容にモーション範囲を置換（ReplaceWithRegister の代替）
+-- s でヤンクした内容にモーション範囲を置換（ReplaceWithRegister の代替）
 return {
   "gbprod/substitute.nvim",
   keys = {
     {
-      "gr",
+      "s",
       function()
         require("substitute").operator()
       end,
       desc = "Substitute with register",
     },
     {
-      "grr",
+      "ss",
       function()
         require("substitute").line()
       end,
       desc = "Substitute line",
     },
     {
-      "gr",
+      "s",
       function()
         require("substitute").visual()
       end,

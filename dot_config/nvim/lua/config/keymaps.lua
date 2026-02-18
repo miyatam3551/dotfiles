@@ -11,6 +11,9 @@ local keymap = vim.keymap.set
 -- x: ヤンクせずに削除（ブラックホールレジスタ）
 keymap({ "n", "v" }, "x", '"_x', { desc = "削除（ヤンクなし）" })
 
+-- S: 1文字削除して挿入（s を substitute.nvim に譲るため大文字に移動）
+keymap("n", "S", "s", { desc = "1文字削除→挿入" })
+
 -- Shift+hjkl: 高速移動
 keymap({ "n", "v" }, "<S-j>", "10j", { desc = "10行下へ" })
 keymap({ "n", "v" }, "<S-k>", "10k", { desc = "10行上へ" })
