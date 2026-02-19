@@ -3,20 +3,18 @@
 # mise shims を PATH に追加（非インタラクティブシェルでも az/aws 等を解決するため）
 export PATH="$HOME/.local/share/mise/shims:$PATH"
 
-# フラグを取得（優先順位: 1. tmux環境変数 → 2. ペインディレクトリの.tmuxenv → 3. ~/.tmuxenv）
+# フラグを取得（優先順位: 1. tmux環境変数 → 2. ペインオプション(mise経由) → 3. ~/.tmuxenv）
 get_flag() {
     local value
-    # 1. tmux グローバル環境変数をチェック
+    # 1. tmux グローバル環境変数をチェック（tmuxinator等で設定）
     value=$(tmux showenv -g "$1" 2>/dev/null | cut -d= -f2)
     if [[ -n "$value" ]]; then echo "$value"; return; fi
 
-    # 2. アクティブペインのディレクトリの .tmuxenv をチェック
-    local pane_path
-    pane_path=$(tmux display-message -p '#{pane_current_path}' 2>/dev/null)
-    if [[ -n "$pane_path" && -f "$pane_path/.tmuxenv" ]]; then
-        value=$(grep "^$1=" "$pane_path/.tmuxenv" 2>/dev/null | cut -d= -f2)
-        if [[ -n "$value" ]]; then echo "$value"; return; fi
-    fi
+    # 2. ペインオプションをチェック（mise + zsh precmdフック経由で設定）
+    local lower_name
+    lower_name=$(echo "$1" | tr '[:upper:]' '[:lower:]')
+    value=$(tmux display-message -p "#{@${lower_name}}" 2>/dev/null)
+    if [[ -n "$value" ]]; then echo "$value"; return; fi
 
     # 3. ユーザーデフォルト (~/.tmuxenv) をチェック
     if [[ -f "$HOME/.tmuxenv" ]]; then

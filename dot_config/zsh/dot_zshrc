@@ -126,6 +126,30 @@ if command -v mise &> /dev/null; then
 fi
 
 # ===============================================
+# tmux ペインオプション同期（mise環境変数 → tmux）
+# ===============================================
+
+# mise が設定した TMUX_SHOW_* 環境変数を tmux のペインオプションに同期
+# precmd で mise の後に実行されるため、ディレクトリ階層を遡った値も反映される
+_tmux_sync_show_flags() {
+    [[ -n "$TMUX" ]] || return
+    [[ "$PWD" == "$_tmux_sync_last_dir" ]] && return
+    _tmux_sync_last_dir="$PWD"
+
+    local vars=(TMUX_SHOW_AWS TMUX_SHOW_AZ TMUX_SHOW_CPU_RAM TMUX_SHOW_BATTERY TMUX_SHOW_HOST TMUX_SHOW_CLOCK)
+    for var in $vars; do
+        local val="${(P)var}"
+        local opt_name="@${(L)var}"
+        if [[ -n "$val" ]]; then
+            tmux set-option -p "$opt_name" "$val" 2>/dev/null
+        else
+            tmux set-option -p -u "$opt_name" 2>/dev/null
+        fi
+    done
+}
+precmd_functions+=(_tmux_sync_show_flags)
+
+# ===============================================
 # Starship プロンプト
 # ===============================================
 
