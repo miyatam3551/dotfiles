@@ -141,9 +141,9 @@ _tmux_sync_show_flags() {
         local val="${(P)var}"
         local opt_name="@${(L)var}"
         if [[ -n "$val" ]]; then
-            tmux set-option -p "$opt_name" "$val" 2>/dev/null
+            tmux set-option -pt "$TMUX_PANE" "$opt_name" "$val" 2>/dev/null
         else
-            tmux set-option -p -u "$opt_name" 2>/dev/null
+            tmux set-option -put "$TMUX_PANE" "$opt_name" 2>/dev/null
         fi
     done
 }
